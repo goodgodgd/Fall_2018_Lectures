@@ -24,7 +24,8 @@ $ sudo apt search [package name or pattern]
 $ sudo apt search unity-tweak-*
 
 # 설치된 패키지 검색
-$ sudo list --installed gedit
+$ sudo list --installed [package name or pattern]
+$ sudo list --installed gedit*
 > Listing... Done
   gedit/xenial,now 3.18.3-0ubuntu4 amd64 [installed]
   gedit-common/xenial,xenial,now 3.18.3-0ubuntu4 all [installed]
