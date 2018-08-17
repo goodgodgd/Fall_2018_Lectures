@@ -1,5 +1,5 @@
-#ifndef CLASSBASEDCODE_H
-#define CLASSBASEDCODE_H
+#ifndef OBJECTBASEDCODE_H
+#define OBJECTBASEDCODE_H
 
 #include <iostream>
 #include <string>
@@ -31,13 +31,13 @@ public:
     {
         sweetness += 1;
         weight += 0.5f;
-        cout << name << "'s current sweetness=" << sweetness << ", weight=" << weight;
+        cout << name << "'s current sweetness=" << sweetness << ", weight=" << weight << endl;
     }
 
     // 함수기반 코드와 달리 데이터가 내부에 있으므로 외부에서 인자를 받을 필요 없음
     bool isEatable()
     {
-        cout << name << " is eatable? " << ((sweetness > 3 && weight > 2.f) ? "yes" : "no");
+        cout << name << " is eatable? " << ((sweetness > 3 && weight > 2.f) ? "yes" : "no") << endl;
         return (sweetness > 3 && weight > 2.f);
     }
 
@@ -55,18 +55,21 @@ private:
 //         외부에서 Fruit 객체를 쓰기 위해 이름, 당도, 무게를 알 필요가 없다.
 //         그저 계속 익히면서 먹을수 있는지 확인만 하면 된다.
 
-
 void objectBasedCode()
 {
+    cout << endl << "==== Object based code =====" << endl;
+    // 객체를 사용하여 변수 선언이 줄어들고
+    // 변수의 이름이 간단해지고
     Fruit apple("apple", 1, 1.f);
     Fruit orange("orange", 0, 0.1f);
 
-    while(apple.isEatable())
+    // 함수 호출 인자도 줄었다.
+    while(!apple.isEatable())
         apple.ripen();
 
-    while(orange.isEatable())
+    while(!orange.isEatable())
         orange.ripen();
 }
 
 
-#endif // CLASSBASEDCODE_H
+#endif // OBJECTBASEDCODE_H

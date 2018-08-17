@@ -4,10 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp \
-    fruit.cpp
+        main.cpp
 
 HEADERS += \
-    fruit.h \
     functionbasedcode.h \
-    classbasedcode.h
+    objectbasedcode.h
