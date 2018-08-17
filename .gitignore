@@ -2,4 +2,6 @@
 ~*
 *.user
 *.user*
-build-*
+build-*-Debug
+build-*-Release
+
