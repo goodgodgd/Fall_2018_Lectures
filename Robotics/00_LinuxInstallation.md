@@ -22,3 +22,10 @@
     - Set user name as you want but **fix password as "ei316"**
     - Don't let computer name to be longer than 5 letters
     - After installation, restart the machine
+
+4. Install Hangul
+    - refer to [link1](http://androidtest.tistory.com/52) or [link2](https://m.blog.naver.com/PostView.nhn?blogId=opusk&logNo=220986268503&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F)
+
+5. Install qt
+    - Visit https://download.qt.io/archive/qt/5.11/5.11.1/
+    - Install it by double click
