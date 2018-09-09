@@ -63,6 +63,7 @@ title('Unity Feedback System: Step function')
 grid
 ```
 
+
 ### 3. 램프 응답 구하기
 ```
 clc; clear
@@ -84,6 +85,7 @@ ylabel('Amplitude')
 title('Unity Feedback System: Ramp function')
 grid
 ```
+
 
 ### 4. 포물선 입력함수 응답
 ```

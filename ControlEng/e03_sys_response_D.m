@@ -1,6 +1,6 @@
 clc; clear
 % 시스템 전달함수 정의
-s=tf('s');                                     
+s=tf('s'); 
 G_s=4*(s+2)/(s*(s+3)*(s+7))
 % 단위 귀환 시스템의 전달함수
 sys=feedback(G_s,1)
