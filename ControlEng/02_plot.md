@@ -10,6 +10,7 @@
 - 옵션 세부내용 참조: [링크](https://kr.mathworks.com/help/matlab/ref/plot.html?searchHighlight=plot&s_tid=doc_srchtitle#btzitot-LineSpec)
 
 ```
+% e02_plot_A.m
 % 작업공간에 있는 모든 데이터 날리고 새 데이터 준비
 clear
 x = 0:0.1:10;
@@ -33,10 +34,9 @@ plot(x, y1, 'r.', x, y2, 'k--')
 ```
 
 
-### 2. 그래프 관련 함수
-
-- **hold** 를 이용한 그래프 중첩
+### 2. **hold** 를 이용한 그래프 중첩
 ```
+% e02_plot_B.m
 % 작업공간에 있는 모든 데이터 날리고 새 데이터 준비
 clear
 x = 0:0.1:10;
@@ -59,8 +59,10 @@ hold off
 plot(x, y1)
 ```
 
-- 그래프 속성 표시
+
+### 3. 그래프 속성 표시
 ```
+% e02_plot_C.m
 % 작업공간에 있는 모든 데이터 날리고 새 데이터 준비
 clear
 x = 0:0.1:10;
@@ -84,6 +86,6 @@ axis([0 pi*3 -1.5 1.5])
 % 그래프 안에 텍스트 표시
 text(2, 1, 'text 함수를 이용한 텍스트 표시')
 
-# 그래프 각 선에 대한 라벨 표시
+% 그래프 각 선에 대한 라벨 표시
 legend('cos(x)', 'exp(-x)')
 ```
