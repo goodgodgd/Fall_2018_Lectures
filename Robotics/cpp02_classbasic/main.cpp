@@ -22,3 +22,20 @@ int main()
 
     return 0;
 }
+
+/* Program output
+
+===== Learn class usage =====
+dog(0) is created
+dog grows
+dog(1): wal wal!!
+dog grows
+dog(2): wal wal!!
+poodle(3) is created
+poodle grows
+poodle(4): wal wal!!
+poodle grows
+poodle(5): wal wal!!
+poodle is destroyed
+dog is destroyed
+*/

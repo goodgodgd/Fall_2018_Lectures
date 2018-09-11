@@ -72,6 +72,7 @@ int main()
     // 클래스의 다형성을 보기 위해서는 반드시 포인터로 선언해야 한다.
     // 자식 클래스의 포인터는 부모 클래스의 포인터로 지정(assign)이 가능하다.
     // 부모 클래스의 포인터는 자식 클래스의 포인터로 지정 불가하다.
+    std::cout << "===== create instances =====" << std::endl;
     Phone* phones[3];
     phones[0] = new Phone;
     phones[1] = new iPhone;
@@ -79,6 +80,7 @@ int main()
 
     // phones[0], [1], [2] 모두 Phone 클래스로 선언이 되어 있지만
     // [1], [2]에서는 자식 클래스인 iPhone과 Galaxy의 text() 함수가 실행된다.
+    std::cout << std::endl << "===== send text =====" << std::endl;
     for(int i=0; i<3; i++)
         phones[i]->text("010xxxxyyyy", "Hello out there!");
 
@@ -91,9 +93,32 @@ int main()
     // Galaxy 클래스의 text() 함수를 부르게 된다.
 
     // 추상 클래스의 포인터에 할당된 객체 타입은 동적으로 변할 수 있다.
+    std::cout << std::endl << "===== change instance and send text =====" << std::endl;
     phones[0] = new Galaxy;
     for(int i=0; i<3; i++)
         phones[i]->text("010xxxxyyyy", "Hello out there!");
 
     return 0;
 }
+
+/* Program output
+
+===== create instances =====
+phone instance is created
+phone instance is created
+apple iphone instance is created
+phone instance is created
+ss galaxy instance is created
+
+===== send text =====
+send msgHello out there! by [text app]
+send msgHello out there! by [iMessage]
+send msgHello out there! by [kaTalk]
+
+===== change instance and send text =====
+phone instance is created
+ss galaxy instance is created
+send msgHello out there! by [kaTalk]
+send msgHello out there! by [iMessage]
+send msgHello out there! by [kaTalk]
+*/

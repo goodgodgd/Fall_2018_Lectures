@@ -39,3 +39,43 @@ int main()
 
     objectBasedCode();
 }
+
+
+/* Program output
+
+==== Function based code =====
+apple is eatable? no
+apple's current sweetness=2, weight=1.5
+apple is eatable? no
+apple's current sweetness=3, weight=2
+apple is eatable? no
+apple's current sweetness=4, weight=2.5
+apple is eatable? yes
+orange is eatable? no
+orange's current sweetness=1, weight=0.6
+orange is eatable? no
+orange's current sweetness=2, weight=1.1
+orange is eatable? no
+orange's current sweetness=3, weight=1.6
+orange is eatable? no
+orange's current sweetness=4, weight=2.1
+orange is eatable? yes
+
+==== Object based code =====
+apple is eatable? no
+apple's current sweetness=2, weight=1.5
+apple is eatable? no
+apple's current sweetness=3, weight=2
+apple is eatable? no
+apple's current sweetness=4, weight=2.5
+apple is eatable? yes
+orange is eatable? no
+orange's current sweetness=1, weight=0.6
+orange is eatable? no
+orange's current sweetness=2, weight=1.1
+orange is eatable? no
+orange's current sweetness=3, weight=1.6
+orange is eatable? no
+orange's current sweetness=4, weight=2.1
+orange is eatable? yes
+*/
