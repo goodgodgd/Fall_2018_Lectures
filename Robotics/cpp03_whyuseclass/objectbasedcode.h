@@ -46,6 +46,7 @@ private:
     float weight;
 };
 
+// 객체 지향 개념(1)
 // 추상화: 객체에서 공통된 속성과 행위를 추출하는 것
 //         사과와 오렌지의 공통된 속성을 묶어 "과일"로 추상화하여
 //         비슷한 두 객체를 "과일"의 두 객체로 표현한다.
@@ -53,22 +54,5 @@ private:
 //         객체의 상세한 내용을 외부에 숨기고 메시지(함수)만으로 객체와 상호작용
 //         외부에서 Fruit 객체를 쓰기 위해 이름, 당도, 무게를 알 필요가 없다.
 //         그저 계속 익히면서 먹을수 있는지 확인만 하면 된다.
-
-void objectBasedCode()
-{
-    cout << endl << "==== Object based code =====" << endl;
-    // 객체를 사용하여 변수 선언이 줄어들고
-    // 변수의 이름이 간단해지고
-    Fruit apple("apple", 1, 1.f);
-    Fruit orange("orange", 0, 0.1f);
-
-    // 함수 호출 인자도 줄었다.
-    while(!apple.isEatable())
-        apple.ripen();
-
-    while(!orange.isEatable())
-        orange.ripen();
-}
-
 
 #endif // OBJECTBASEDCODE_H

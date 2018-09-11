@@ -9,7 +9,7 @@ ExampleDog::ExampleDog()
     // 기본 생성자에서는 멤버 변수를 초기화 시켜주는 것이 좋다.
     name = "dog";
     age = 0;
-    std::cout << name << "(" << age << ") was created" << std::endl;
+    std::cout << name << "(" << age << ") is created" << std::endl;
 }
 
 // 인자가 있는 생성자 정의
@@ -17,7 +17,13 @@ ExampleDog::ExampleDog(std::string _name, int _age)
 {
     name = _name;
     age = _age;
-    std::cout << name << "(" << age << ") was created" << std::endl;
+    std::cout << name << "(" << age << ") is created" << std::endl;
+}
+
+// 소멸자 정의
+ExampleDog::~ExampleDog()
+{
+    std::cout << name << " is destroyed" << std::endl;
 }
 
 // 공개 멤버 함수 정의

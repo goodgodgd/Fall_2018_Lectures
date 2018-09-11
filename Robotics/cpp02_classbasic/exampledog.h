@@ -16,6 +16,9 @@ public:
     // 인자가 있는 생성자 선언
     ExampleDog(std::string _name, int _age);
 
+    // 소멸자 선언
+    ~ExampleDog();
+
     // 공개 멤버 함수: 외부에서 호출 가능
     void grow();
     void bark();

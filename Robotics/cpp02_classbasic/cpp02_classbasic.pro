@@ -8,6 +8,4 @@ SOURCES += \
     exampledog.cpp
 
 HEADERS += \
-    functionbasedcode.h \
-    objectbasedcode.h \
     exampledog.h

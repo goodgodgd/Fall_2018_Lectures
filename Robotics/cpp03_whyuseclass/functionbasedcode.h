@@ -19,20 +19,4 @@ bool isEatable(const string name, int sweetness, float weight)
     return (sweetness > 3 && weight > 2.f);
 }
 
-void functionBasedCode()
-{
-    cout << endl << "==== Function based code =====" << endl;
-    int appleSweetness = 1;
-    float appleWeight = 1.f;
-
-    int orangeSweetness = 0;
-    float orangeWeight = 0.1f;
-
-    while(!isEatable("apple", appleSweetness, appleWeight))
-        ripen("apple", appleSweetness, appleWeight);
-
-    while(!isEatable("orange", orangeSweetness, orangeWeight))
-        ripen("orange", orangeSweetness, orangeWeight);
-}
-
 #endif // FUNCTIONBASEDCODE_H
