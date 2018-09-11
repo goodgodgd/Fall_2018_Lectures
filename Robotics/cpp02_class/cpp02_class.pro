@@ -4,8 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+    exampledog.cpp
 
 HEADERS += \
     functionbasedcode.h \
-    objectbasedcode.h
+    objectbasedcode.h \
+    exampledog.h

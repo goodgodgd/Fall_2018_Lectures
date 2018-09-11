@@ -20,7 +20,7 @@ void declareVariableAnywhere()
 
 void useBoolType()
 {
-    cout << endl << "===== useBoolType =====" << endl;
+    cout << endl << "===== boolTypeIsAvailable =====" << endl;
     bool doYouLikeOrange = false;
     int orange = 5;
     cout << "use bool type for condition check: " << doYouLikeOrange
@@ -53,11 +53,11 @@ void casting()
     int wrap_both = (int)(a);
 
     cout << "casting a: " << "(type)variable: " << wrap_varialbe
-              << " type(variable): " << wrap_type
-              << " (type)(variable): " << wrap_both << endl;
+              << ", type(variable): " << wrap_type
+              << ", (type)(variable): " << wrap_both << endl;
     cout << "casting b: " << "(type)variable: " << (int)b
-              << " type(variable): " << int(b)
-              << " (type)(variable): " << (int)(b) << endl;
+              << ", type(variable): " << int(b)
+              << ", (type)(variable): " << (int)(b) << endl;
     cout << "all of three castings work fine"
               << " but type(variable) is recommended" << endl;
 }
@@ -75,7 +75,8 @@ void newAndDelete1DArray()
 {
     cout << endl << "===== newAndDelete1DArray =====" << endl;
     int* mem = new int[10];
-    mem[0] = 0; mem[9] = 9;
+    for(int i=0; i<10; i++)
+        mem[i] = i;
     cout << "allocate 1D array by new: " << mem << " "
               << mem[0] << " " << mem[9] << endl;
     delete[] mem;
@@ -98,21 +99,21 @@ void newAndDelete2DArray()
 }
 
 
-void noswap(int a, int b)
+void _noswap(int a, int b)
 {
     int t = a;
     a = b;
     b = t;
 }
 
-void swapByRef(int& a, int& b)
+void _swapByRef(int& a, int& b)
 {
     int t = a;
     a = b;
     b = t;
 }
 
-void swapByPtr(int* a, int* b)
+void _swapByPtr(int* a, int* b)
 {
     int t = *a;
     *a = *b;
@@ -123,14 +124,14 @@ void callByReference()
 {
     cout << endl << "===== callByReference =====" << endl;
     int a=10, b=200;
-    cout << "before swap  " << a << " " << b << endl;
+    cout << "before swap  a=" << a << ", b=" << b << endl;
 
-    noswap(a, b);
-    cout << "after noswap " << a << " " << b << endl;
-    swapByRef(a, b);
-    cout << "after swapByRef " << a << " " << b << endl;
-    swapByPtr(&a, &b);
-    cout << "after swapByPtr " << a << " " << b << endl;
+    _noswap(a, b);
+    cout << "after _noswap a=" << a << ", b=" << b << endl;
+    _swapByRef(a, b);
+    cout << "after _swapByRef " << a << ", b=" << b << endl;
+    _swapByPtr(&a, &b);
+    cout << "after _swapByPtr " << a << ", b=" << b << endl;
 
     // NOT allowed
     // swap(10, 200);
@@ -138,7 +139,7 @@ void callByReference()
     // swap(10, b);
 }
 
-void defaultArgFunc(int a, char* b="hello", float c=11.1f)
+void _defaultArgFunc(int a, char* b="hello", float c=11.1f)
 {
     cout << "value: " << a << " " << b << " " << c << endl;
 }
@@ -146,9 +147,9 @@ void defaultArgFunc(int a, char* b="hello", float c=11.1f)
 void defaultArgument()
 {
     cout << endl << "===== defaultArgument =====" << endl;
-    defaultArgFunc(10);
-    defaultArgFunc(10, "hihi~");
-    defaultArgFunc(10, "happy", 21.5f);
+    _defaultArgFunc(10);
+    _defaultArgFunc(10, "hihi~");
+    _defaultArgFunc(10, "happy", 21.5f);
 }
 
 void functionOverloading()

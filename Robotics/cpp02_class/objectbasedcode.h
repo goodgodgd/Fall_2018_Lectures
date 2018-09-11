@@ -26,7 +26,7 @@ public:
         weight = _weight;
     }
 
-    // 함수기반 코드와 달리 데이터가 내부에 있으므로 외부에서 인자를 받을 필요 없음
+    // 함수기반 코드와 달리 데이터가 내부에 있으므로 외부에서 많은 인자를 받을 필요 없음
     void ripen()
     {
         sweetness += 1;
@@ -34,7 +34,6 @@ public:
         cout << name << "'s current sweetness=" << sweetness << ", weight=" << weight << endl;
     }
 
-    // 함수기반 코드와 달리 데이터가 내부에 있으므로 외부에서 인자를 받을 필요 없음
     bool isEatable()
     {
         cout << name << " is eatable? " << ((sweetness > 3 && weight > 2.f) ? "yes" : "no") << endl;
