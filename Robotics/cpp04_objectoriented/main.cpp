@@ -22,7 +22,7 @@ public:
     bool checkReceived() { return true; }
     virtual void sendMsg(std::string msg)
     {
-        std::cout << "send msg" << msg << " by [text app]" << std::endl;
+        std::cout << "send msg " << msg << " by [text app]" << std::endl;
     }
 };
 
@@ -47,7 +47,7 @@ public:
     // overriding: 존재하는 함수를 프로토타입이 같은 다른 함수로 대체
     virtual void sendMsg(std::string msg)
     {
-        std::cout << "send msg" << msg << " by [iMessage]" << std::endl;
+        std::cout << "send msg " << msg << " by [iMessage]" << std::endl;
     }
 };
 
@@ -63,7 +63,7 @@ public:
     // 메소드 오버라이딩
     virtual void sendMsg(std::string msg)
     {
-        std::cout << "send msg" << msg << " by [kaTalk]" << std::endl;
+        std::cout << "send msg " << msg << " by [kaTalk]" << std::endl;
     }
 };
 
@@ -81,8 +81,9 @@ int main()
     // phones[0], [1], [2] 모두 Phone 클래스로 선언이 되어 있지만
     // [1], [2]에서는 자식 클래스인 iPhone과 Galaxy의 text() 함수가 실행된다.
     std::cout << std::endl << "===== send text =====" << std::endl;
-    for(int i=0; i<3; i++)
-        phones[i]->text("010xxxxyyyy", "Hello out there!");
+    phones[0]->text("010xxxxyyyy", "Hello out there!");
+    phones[1]->text("010xxxxyyyy", "C++ supports OOP.");
+    phones[2]->text("010xxxxyyyy", "OOP means object-oriented programming.");
 
     // 클래스에 가상함수(virtual)가 있는 경우
     // 추상 클래스(abstract class)라 부른다.
@@ -95,8 +96,9 @@ int main()
     // 추상 클래스의 포인터에 할당된 객체 타입은 동적으로 변할 수 있다.
     std::cout << std::endl << "===== change instance and send text =====" << std::endl;
     phones[0] = new Galaxy;
-    for(int i=0; i<3; i++)
-        phones[i]->text("010xxxxyyyy", "Hello out there!");
+    phones[0]->text("010xxxxyyyy", "Hello out there!");
+    phones[1]->text("010xxxxyyyy", "C++ supports OOP.");
+    phones[2]->text("010xxxxyyyy", "OOP means object-oriented programming.");
 
     return 0;
 }
@@ -111,14 +113,14 @@ phone instance is created
 ss galaxy instance is created
 
 ===== send text =====
-send msgHello out there! by [text app]
-send msgHello out there! by [iMessage]
-send msgHello out there! by [kaTalk]
+send msg Hello out there! by [text app]
+send msg C++ supports OOP. by [iMessage]
+send msg OOP means object-oriented programming. by [kaTalk]
 
 ===== change instance and send text =====
 phone instance is created
 ss galaxy instance is created
-send msgHello out there! by [kaTalk]
-send msgHello out there! by [iMessage]
-send msgHello out there! by [kaTalk]
+send msg Hello out there! by [kaTalk]
+send msg C++ supports OOP. by [iMessage]
+send msg OOP means object-oriented programming. by [kaTalk]
 */
