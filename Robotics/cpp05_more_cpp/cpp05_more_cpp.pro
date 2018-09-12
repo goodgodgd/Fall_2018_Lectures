@@ -8,4 +8,5 @@ SOURCES += \
 
 HEADERS += \
     namespace.h \
-    stlvector.h
+    stlvector.h \
+    conststatic.h

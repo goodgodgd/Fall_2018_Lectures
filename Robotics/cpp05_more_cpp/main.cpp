@@ -1,10 +1,11 @@
+#include "namespace.h"
 #include "stlvector.h"
-#include <iostream>
-using namespace std;
+#include "conststatic.h"
 
 int main()
 {
-    cout << "Hello World!" << endl;
-    vectorPractice();
+    practiceNamespace();
+    practiceVector();
+    practiceConstStatic();
     return 0;
 }

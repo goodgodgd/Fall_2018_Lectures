@@ -6,7 +6,7 @@ using namespace std;
 
 namespace physics
 {
-    whatIsRight()
+    void whatIsRight()
     {
         cout << "physics: when facing north, east is right side" << endl;
     }
@@ -14,14 +14,14 @@ namespace physics
 
 namespace morality
 {
-    whatIsRight()
+    void whatIsRight()
     {
         cout << "morality: correct and agreeing with facts" << endl;
     }
 }
 
 namespace law {
-    whatIsRight()
+    void whatIsRight()
     {
         cout << "law: What you are legally entitled to do or have" << endl;
     }
@@ -36,9 +36,9 @@ namespace law {
 
 // 함수명을 길게 쓰는 것보다는 그런 공통의 맥락들을 모아서
 // 하나의 namespace로 묶어주는 것이 좋다.
-void exampleOfNamespace()
+void practiceNamespace()
 {
-    cout << "===== exampleOfNamespace =====" << endl;
+    cout << "===== practiceNamespace =====" << endl;
     physics::whatIsRight();
     morality::whatIsRight();
     law::whatIsRight();
