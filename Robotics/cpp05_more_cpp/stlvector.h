@@ -10,7 +10,7 @@
 // 자동으로 처리하므로 기본 배열을 쓰는 것보다 쓰기 쉽고 안전하다.
 void practiceVector()
 {
-    std::cout << std::endl << "===== exampleOfNamespace =====" << std::endl;
+    std::cout << std::endl << "===== vector =====" << std::endl;
 
     // 비어있는 int-type vector 생성
     std::vector<int> integersA;

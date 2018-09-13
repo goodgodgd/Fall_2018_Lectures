@@ -38,7 +38,7 @@ namespace law {
 // 하나의 namespace로 묶어주는 것이 좋다.
 void practiceNamespace()
 {
-    cout << "===== practiceNamespace =====" << endl;
+    cout << "===== namespace =====" << endl;
     physics::whatIsRight();
     morality::whatIsRight();
     law::whatIsRight();
