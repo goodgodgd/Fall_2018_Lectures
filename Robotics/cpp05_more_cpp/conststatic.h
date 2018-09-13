@@ -26,9 +26,7 @@ public:
     {
         // static 멤버 함수에서는 static 멤버 변수만 접근할 수 있다.
         cout << "Number of students: " << n_students << endl;
-        // static 함수에서는 일반 변수나 함수에 접근할 수 없다.
-//        getScore();
-//        cout << "my score is " << score << endl;
+        // static 함수에서는 일반 멤버 함수/변수에 접근할 수 없다.
     }
 
     void study()
@@ -83,19 +81,14 @@ void practiceConstStatic()
     Student kim(78);
     Student* lee = new Student(90);
 
-    // 일반적인 멤버 함수 실행
-    kim.getScore();
-    lee->getScore();
-
-    // static 멤버 함수는 객체를 생성하지 않고 클래스에서 직접 부를수 있다.
-    Student::numberOfStudents();
-    kim.numberOfStudents();
-    lee->numberOfStudents();
-
     // 일반 함수는 객체를 통해서만 호출가능하다.
     kim.getScore();
     lee->getScore();
-//    Student::getScore();
+
+    // static 멤버 함수는 클래스에서 직접 부를수도 있고 객체에서 부를수도 있다.
+    Student::numberOfStudents();
+    kim.numberOfStudents();
+    lee->numberOfStudents();
 
     // reference로 들어간 입력인자는 내부 속성이 변경될 수 있다.
     studyHard(kim);
