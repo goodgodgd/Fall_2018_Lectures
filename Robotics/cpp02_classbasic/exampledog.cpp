@@ -31,6 +31,8 @@ void ExampleDog::grow()
 {
     // 복잡한 알고리즘의 경우 공개함수에서 바로 구현하기 보다는
     // 비공개 함수에서 구체적인 구현을 하는 것이 좋다.
+    // grow(): 클래스 사용자를 위한 함수 이름
+    // increaseAge(): 실제 구현 방법을 나타낸 함수 이름
     std::cout << name << " grows" << std::endl;
     increaseAge();
 }
