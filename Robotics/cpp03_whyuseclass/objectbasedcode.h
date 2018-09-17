@@ -14,36 +14,36 @@ public:
     {
         name = "fruit";
         sweetness = 0;
-        weight = 0.1f;
+        sweetIncr = 0.1f;
     }
 
     // 입력인자가 있는 생성자 정의
     // 멤버 변수를 입력인자로 초기화
-    Fruit(string _name, int _sweetness, float _weight)
+    Fruit(string _name, float _sweetness, float _sweetIncr)
     {
         name = _name;
         sweetness = _sweetness;
-        weight = _weight;
+        sweetIncr = _sweetIncr;
     }
 
     // 함수기반 코드와 달리 데이터가 내부에 있으므로 외부에서 많은 인자를 받을 필요 없음
     void ripen()
     {
-        sweetness += 1;
-        weight += 0.5f;
-        cout << name << "'s current sweetness=" << sweetness << ", weight=" << weight << endl;
+        sweetness += sweetIncr;
+        cout << name << "'s current sweetness=" << sweetness << endl;
     }
 
     bool isEatable()
     {
-        cout << name << " is eatable? " << ((sweetness > 3 && weight > 2.f) ? "yes" : "no") << endl;
-        return (sweetness > 3 && weight > 2.f);
+        cout << name << " is eatable? " << ((sweetness > 2.f) ? "yes" : "no") << endl;
+        return (sweetness > 2.f);
     }
 
 private:
+    // 공통의 속성: 이름, 당도, 당도증가율 -> 멤버 변수
     string name;
-    int sweetness;
-    float weight;
+    float sweetness;
+    float sweetIncr;
 };
 
 // 객체 지향 개념(1)

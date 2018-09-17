@@ -6,17 +6,27 @@
 using namespace std;
 
 
-void ripen(const string name, int& sweetness, float& weight)
+float ripenApple(float sweetness)
 {
-    sweetness += 1;
-    weight += 0.5f;
-    cout << name << "'s current sweetness=" << sweetness << ", weight=" << weight << endl;
+    const float sweetIncr = 0.3f;
+    sweetness += sweetIncr;
+    cout << "apple's current sweetness=" << sweetness << endl;
+    return sweetness;
 }
 
-bool isEatable(const string name, int sweetness, float weight)
+float ripenOrange(float sweetness)
 {
-    cout << name << " is eatable? " << ((sweetness > 3 && weight > 2.f) ? "yes" : "no") << endl;
-    return (sweetness > 3 && weight > 2.f);
+    const float sweetIncr = 0.5f;
+    sweetness += sweetIncr;
+    cout << "orange's current sweetness=" << sweetness << endl;
+    return sweetness;
+}
+
+
+bool isEatable(const string name, float sweetness)
+{
+    cout << name << " is eatable? " << ((sweetness > 2.f) ? "yes" : "no") << endl;
+    return (sweetness > 2.f);
 }
 
 #endif // FUNCTIONBASEDCODE_H
