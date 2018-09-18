@@ -35,7 +35,7 @@ pretty(F_s)
 disp('라플라스 역변환')
 f_t=ilaplace(F_s)
 
-disp('부분분수 전개: 분, 극점, 나머지')
+disp('부분분수 전개: 분자, 극점, 나머지')
 [num, den]=numden(F_s);
 num=sym2poly(num);
 den=sym2poly(den);
