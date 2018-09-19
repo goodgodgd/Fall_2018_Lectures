@@ -12,13 +12,13 @@ public:
 
     bool text(std::string receiverNumber, std::string msg)
     {
-        if(isReceiverExist(receiverNumber)==false)
+        if(doesReceiverExist(receiverNumber)==false)
             return false;
         sendMsg(msg);
         return checkReceived();
     }
 
-    bool isReceiverExist(std::string receiverNumber) { return true; }
+    bool doesReceiverExist(std::string receiverNumber) { return true; }
     bool checkReceived() { return true; }
     virtual void sendMsg(std::string msg)
     {
