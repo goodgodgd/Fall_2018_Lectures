@@ -52,17 +52,13 @@
 
 3. 실수 복소수 극점 + 실수 영점
     ```
-    clc; clear
+    % continued code
+    disp('systems with real and complex poles and zeros')
+    sys1 = (s+2)/((s+1)*(s+3)*(s+4));
+    sys2 = (s+5)/((s+1)*(s+3)*(s+4));
+    sys3 = (s+1)/((s+2)*(s^2+6*s+10));
+    sys4 = (s+4)/((s+2)*(s^2+6*s+10));
     
-    disp('systems with only real poles')
-    s = tf('s');
-    sys1 = 1/(s+1);
-    sys2 = 1/((s+1)*(s+2));
-    sys3 = 1/((s+1)*(s+2)*(s+3));
-    sys4 = 1/((s+1)*(s+2)*(s+3)*(s+4));
-    
-    figure(1)
-    set(gcf,'Position',[100 300 700 500])
     subplot(2,2,1)
     rlocus(sys1)
     subplot(2,2,2)
@@ -79,6 +75,7 @@
     
 4. 기타 다양한 케이스들
     ```
+    % continued code
     disp('other cases')
     sys1 = (s+2)/((s^2+2*s+4)*(s^2+6*s+10));
     sys2 = (s+5)/((s^2+2*s+4)*(s^2+6*s+10));
