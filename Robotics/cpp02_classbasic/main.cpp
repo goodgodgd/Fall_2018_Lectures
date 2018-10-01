@@ -18,7 +18,7 @@ int main()
     poodle->grow();
     poodle->bark();
     // delete를 이용한 객체 소멸
-    delete poodle;
+//    delete poodle;
 
     return 0;
 }
