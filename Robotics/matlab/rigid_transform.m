@@ -5,17 +5,24 @@ p1 = [4, 3, pi/3];
 theta = p1(3);
 R1 = [cos(theta), -sin(theta); sin(theta), cos(theta)];
 t1 = [p1(1); p1(2)];
-T1 = [R1 t1; 0 0 1];
+T1 = [R1 t1; 0 0 1]
 
 % pose2 relative to pose1
 p2_1 = [2, 1, pi/6];
 theta = p2_1(3);
 R2_1 = [cos(theta), -sin(theta); sin(theta), cos(theta)];
 t2_1 = [p2_1(1); p2_1(2)];
-T2_1 = [R2_1 t2_1; 0 0 1];
+T2_1 = [R2_1 t2_1; 0 0 1]
 
 % pose2 in global frame
-T2 = T2_1 * T1;
+T2 = T1 * T2_1
+
+disp('point1 (1,2) in frame 2 with homogeneous coordinate')
+pt1_2 = [1 2 1]'
+disp('point1 (1,2) in frame 1')
+pt1_1 = T2_1*pt1_2
+disp('point1 (1,2) in frame g')
+pt1_g = T1 * T2_1*pt1_2
 
 % x, y axes in homogeneous coordinates
 baisic_axes = [0 0 1; 1 0 1; 0 1 1]';
