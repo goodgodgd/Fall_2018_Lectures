@@ -60,31 +60,51 @@ $ cd ~/catkin_ws && catkin_make
 
 #### 1.4 네트워크 설정
 
-`gedit ~/.bashrc` 명령으로 .bashrc 파일을 열어보면 아래쪽에 ros 설치과정에서 추가된 스크립트가 있다.  
-맨 아래를 보면 두 개의 주소를 볼 수 있다.
-- `ROS_MASTER_URI` : 여러대의 PC가 통신하는 경우 한 PC가 master 역할을 해줘야한다. `ROS_MASTER_URI`는 master PC의 IP 주소이다.  
-- `ROS_HOSTNAME` : ROS Node의 주소에 들어간다. 자기 자신의 IP를 쓴다.  
+- `gedit ~/.bashrc` 명령으로 .bashrc 파일을 열어보면 아래쪽에 ros 설치과정에서 추가된 스크립트가 있다.  
+- 맨 아래를 보면 두 개의 주소를 볼 수 있다.
+    - `ROS_MASTER_URI` : 여러대의 PC가 통신하는 경우 한 PC가 master 역할을 해줘야한다. `ROS_MASTER_URI`는 master PC의 IP 주소이다.  
+    - `ROS_HOSTNAME` : ROS Node의 주소에 들어간다. 자기 자신의 IP를 쓴다.  
 
-기본 설정은 하나의 PC안에서 모든 동작을 하는 것이므로 두 주소 모두 `localhost`로 되어있다.  
-그러나 터틀봇의 SBC와 통신을 하기 위해서는 이를 IP 주소로 바꿔야 한다.  
-IP 주소는 `ifconfig` 명령어를 이용해 확인할 수 있다.    
-`inet addr:192.168.xxx.xxx` 로 시작하는 주소를 찾아 쓴다.
-Remote PC가 master 역할을 하니 `ROS_MASTER_URI`, `ROS_HOSTNAME` 둘 다 같은 주소를 쓴다.  
-다음은 설정 예시이다.
-```bash
-export ROS_MASTER_URI=http://192.168.0.49:11311
-export ROS_HOSTNAME=192.168.0.49
-```
+- 기본 설정은 하나의 PC안에서 모든 동작을 하는 것이므로 두 주소 모두 `localhost`로 되어있다.  
+- 그러나 터틀봇의 SBC와 통신을 하기 위해서는 이를 IP 주소로 바꿔야 한다.  
+- IP 주소는 `ifconfig` 명령어를 이용해 확인할 수 있다.  
+    ```bash
+    ian@ian:~/workplace/Fall_2018_Lectures$ ifconfig
+    enp0s3    Link encap:Ethernet  HWaddr 08:00:27:fb:32:71  
+              inet addr:192.168.0.49  Bcast:192.168.0.255  Mask:255.255.255.0
+              inet6 addr: fe80::b363:d11b:79f9:924a/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:3090176 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:719554 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000 
+              RX bytes:4612766528 (4.6 GB)  TX bytes:51164375 (51.1 MB)
+    
+    lo        Link encap:Local Loopback  
+              inet addr:127.0.0.1  Mask:255.0.0.0
+              inet6 addr: ::1/128 Scope:Host
+              UP LOOPBACK RUNNING  MTU:65536  Metric:1
+              RX packets:3956 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:3956 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000 
+              RX bytes:510356 (510.3 KB)  TX bytes:510356 (510.3 KB)
+    ```
+- 출력에서 `inet addr:192.168.xxx.xxx` 로 시작하는 주소를 찾아 쓴다.    
+- Remote PC가 master 역할을 하니 `ROS_MASTER_URI`, `ROS_HOSTNAME` 둘 다 같은 주소를 쓴다.  
+- 다음은 설정 예시이다.
+    ```bash
+    export ROS_MASTER_URI=http://192.168.0.49:11311
+    export ROS_HOSTNAME=192.168.0.49
+    ```
 ***
 
 ### 2. SBC Setup
 
 원문: http://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#raspberry-pi-3-setup
 
-로보티즈 e-manual에서 라즈베리파이 하드웨어에 설치 할 수 있는 운영체제는 두 가지가 있다.  
-`Raspberry Pi 3`와 `Ubuntu 16.04 MATE` (메이트가 아니다. 마테다.) 이다.  
-우분투 마테는 우분투에서 사용자 환경을 좀 다르게 바꾼 것인데 결과적으로 라즈베리파이3를 설치할 것을 권장한다.  
-둘 다 설치방법은 똑같은데 로보티즈에서 기본 라즈베리파이3에 ROS 패키지를 다 설치한 버전을 제공한다.  
+- 로보티즈 e-manual에서 라즈베리파이 하드웨어에 설치 할 수 있는 운영체제는 두 가지가 있다.  
+- `Raspberry Pi 3`와 `Ubuntu 16.04 MATE` (메이트가 아니다. 마테다.) 이다.  
+- 우분투 마테는 우분투에서 사용자 환경을 좀 다르게 바꾼 것인데 결과적으로 라즈베리파이3를 설치할 것을 권장한다.  
+- 둘 다 설치방법은 똑같은데 로보티즈에서 기본 라즈베리파이3에 ROS 패키지를 다 설치한 버전을 제공한다.  
 (기본 라즈베리파이3를 설치하여 Remote PC처럼 설치할 수도 있다.)  
 
 
@@ -108,29 +128,31 @@ export ROS_HOSTNAME=192.168.0.49
 
 #### 2.2 파티션 설정
 
-기본 파티션은 설치된 패키지들로 남은 용량이 없다. SD카드의 남은 용량을 활용할 수 있도록 파티션을 넓혀줘야 한다.  
-로보티즈 매뉴얼에는 간단한 커맨드 명령어로 이를 할 수 있는 방법이 나와있다.
-```bash
-$ sudo raspi-config
-  (select 7 Advanced Options > A1 Expand Filesystem)
-```
-
-그런데 라즈베리파이 하드웨어에 메모리 용량이 1GB 밖에 되지 않아 연산을 처리하는데 좀 부족할 수 있다.  
-**위 방법 대신** gparted를 이용하면 SD 카드에 swap 메모리를 할당할 수 있다.  
-swap 메모리는 저장장치의 메모리를 RAM 처럼 쓸 수 있게 해준다.  
-SD 카드에 swap 메모리를 할당하여 부족한 메모리 용량을 보충해보자. (옵션)
-- 인터넷을 연결하고 `gparted` 를 설치한다.
+1. 기본 설정  
+    기본 파티션은 설치된 패키지들로 남은 용량이 없다. SD카드의 남은 용량을 활용할 수 있도록 파티션을 넓혀줘야 한다.  
+    로보티즈 매뉴얼에는 간단한 커맨드 명령어로 이를 할 수 있는 방법이 나와있다.
     ```bash
-    sudo apt update
-    sudo apt install gparted
+    $ sudo raspi-config
+      (select 7 Advanced Options > A1 Expand Filesystem)
     ```
-- 커맨드에서 `sudo gparted`를 실행한다.
-- 현재 파티션을 우클릭하여 'Resize/Move'를 선택한다.
-- 2GB만 남기고 SD 카드의 용량을 모두 할당한다.
-- 남은 2GB 자리에 우클릭하여 'New'를 선택한다.
-- 'File system: linux-swap' 을 선택하고 남은 용량을 할당하여 'Add'를 누른다.
 
-상단의 체크표시 (Apply all operations)를 누르면 파티션 재조정이 이루어진다.
+2. 다른 설정 (swap 메모리 할당)  
+    그런데 라즈베리파이 하드웨어에 메모리 용량이 1GB 밖에 되지 않아 연산을 처리하는데 좀 부족할 수 있다.  
+    **위 방법 대신** gparted를 이용하면 SD 카드에 swap 메모리를 할당할 수 있다.  
+    swap 메모리는 저장장치의 메모리를 RAM 처럼 쓸 수 있게 해준다.  
+    SD 카드에 swap 메모리를 할당하여 부족한 메모리 용량을 보충해보자. (옵션)
+    - 인터넷을 연결하고 `gparted` 를 설치한다.
+        ```bash
+        sudo apt update
+        sudo apt install gparted
+        ```
+    - 커맨드에서 `sudo gparted`를 실행한다.
+    - 현재 파티션을 우클릭하여 'Resize/Move'를 선택한다.
+    - 2GB만 남기고 SD 카드의 용량을 모두 할당한다.
+    - 남은 2GB 자리에 우클릭하여 'New'를 선택한다.
+    - 'File system: linux-swap' 을 선택하고 남은 용량을 할당하여 'Add'를 누른다.
+    
+    상단의 체크표시 (Apply all operations)를 누르면 파티션 재조정이 이루어진다.
 ***
 
 #### 2.3 시간 설정
