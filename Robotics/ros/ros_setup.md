@@ -1,14 +1,30 @@
 # ROS 설치 가이드
 
+일반적으로 터틀봇을 ROS를 이용해 제어할 때 Remote PC와 SBC 두 PC가 사용된다. 
+- Remote PC: 원격에서 연산을 하고 제어를 하는 PC다. 데스크탑이나 랩탑이 주로 그 역할을 한다.
+- SBC: 로봇과 직접 연결된 소형 PC다. 우리의 경우 라즈베리파이가 그 역할을 한다.  
+
+라즈베리파이와 같은 SBC는 연산속도가 느려 복잡한 알고리즘을 수행하기에 적절하지 않다.  
+SBC는 Remote PC에 센서 데이터를 전달해주고 Remote PC에서 오는 하드웨어 제어 신호를 실행해주는 역할만 하는 것이 일반적이다.  
+따라서 ROS는 Remote PC와 SBC 모두 설치해 줘야한다.  
+아래는 각각의 PC에 대한 ROS 설치 및 설정 방법이다.
+
 ### 1. PC Setup
 
-원문: http://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#pc-setup
+원문: http://emanual.robotis.com/docs/en/platform/turtlebot3/pc_setup/#pc-setup  
 ***
 
 #### 1.1 우분투 설치
 
-우분투 설치는 제가 예전에 [여기](https://github.com/goodgodgd/Fall_2018_Lectures/blob/master/Robotics/00_LinuxInstallation.md) 
-소개한 대로 가상 머신으로 설치하세요.
+우분투 설치는 예전에 [여기](https://github.com/goodgodgd/Fall_2018_Lectures/blob/master/Robotics/00_LinuxInstallation.md) 
+소개한 대로 가상 머신으로 설치한다.  
+가이드에 나와있는 우분투 버전이 16.04 이므로 이 버전을 설치한다.  
+유의할 점은 네트워크 설정이다. ROS가 직접 와이파이에 접속해야 하므로 기본 가상 머신의 네트워크 설정으로는 원격 통신이 되지 않는다.  
+다음과 같이 네트워크 설정을 실행한다.   
+1. Virtual Box를 실행한다.
+2. 가상 머신 이름을 우클릭하고 '설정'으로 들어간다.
+3. '네트워크'에서 '다음에 연결됨(A):' 옆의 옵션을 '어댑터에 브리지'로 설정한다.
+
 ***
 
 #### 1.2 ROS 설치
@@ -46,10 +62,8 @@ $ cd ~/catkin_ws && catkin_make
 
 `gedit ~/.bashrc` 명령으로 .bashrc 파일을 열어보면 아래쪽에 ros 설치과정에서 추가된 스크립트가 있다.  
 맨 아래를 보면 두 개의 주소를 볼 수 있다.
-- `ROS_MASTER_URI` : 여러대의 PC가 통신하는 경우 한 PC가 master 역할을 해줘야한다. 통상 Remote PC가 그 역할을 한다.  
-`ROS_MASTER_URI`는 master PC의 IP 주소이다.
+- `ROS_MASTER_URI` : 여러대의 PC가 통신하는 경우 한 PC가 master 역할을 해줘야한다. `ROS_MASTER_URI`는 master PC의 IP 주소이다. 통상 Remote PC가 그 역할을 한다.  
 - `ROS_HOSTNAME` : 자기 자신의 IP를 쓴다.
-
 기본 설정은 하나의 PC안에서 모든 동작을 하는 것이므로 두 주소 모두 `localhost`로 되어있다.  
 그러나 터틀봇의 SBC와 통신을 하기 위해서는 이를 IP 주소로 바꿔야 한다.  
 `ROS_HOSTNAME` 에는 당연히 해당 PC의 IP를 쓰고 Remote PC가 master 역할을 하니 `ROS_MASTER_URI`에도 같은 주소를 쓴다.  
@@ -60,3 +74,103 @@ IP 주소는 `ifconfig` 명령어를 이용해 확인할 수 있다.
 export ROS_MASTER_URI=http://192.168.0.49:11311
 export ROS_HOSTNAME=192.168.0.49
 ```
+
+
+### 2. SBC Setup
+
+원문: http://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#raspberry-pi-3-setup
+
+로보티즈 e-manual에서 라즈베리파이 하드웨어에 설치 할 수 있는 운영체제는 두 가지가 있다.  
+`Raspberry Pi 3`와 `Ubuntu 16.04 MATE` (메이트가 아니다. 마테다.) 이다.  
+우분투 마테는 우분투에서 사용자 환경을 좀 다르게 바꾼 것인데 결과적으로 라즈베리파이3를 설치할 것을 권장한다.  
+둘 다 설치방법은 똑같은데 로보티즈에서 기본 라즈베리파이3에 ROS 패키지를 다 설치한 버전을 제공한다.  
+(기본 라즈베리파이3를 설치하여 Remote PC처럼 설치할 수도 있다.)  
+
+
+#### 2.1 Raspberry Pi 3 설치
+
+라즈베리파이3 설치 방법은 다음과 같다.
+- [여기](http://www.robotis.com/service/download.php?no=730)에서 설치 파일을 다운받는다.
+- [여기](https://etcher.io/) 에서 etcher를 다운 받는다.
+- etcher 압축 파일을 압축 해제하고 실행한다.
+    - 탐색기에서 Downloads 폴더로 들어가 `etcher-electron-1.4.5-linux-x64.zip` 압축파일을 우클릭하고 'Extract here'를 누르면 압축해제된 실행파일이 생긴다.
+    - 실행파일을 더블클릭하면 설치할까요? 에 'yes'로 대답하면 실행된다.
+- `Select image': 다운받은 라즈베리파이3 이미지를 선택한다.
+- 'Select drive': SD 카드를 USB를 통해 연결하고 드라이브를 선택한다.
+- 'Burn'을 누르면 설치가 된다.
+
+이후 사용방법
+- SBC에 SD 카드, 모니터, 키보드, 마우스를 연결하고 전원을 켠다.  
+- 기본 사용자명은 **pi**, 비밀번호는 **turtlebot** 이다.
+- 오른쪽 상단의 메뉴를 이용해 무선 인터넷에 연결할 수 있다.
+
+
+#### 2.2 파티션 설정
+
+기본 파티션은 설치된 패키지들로 남은 용량이 없다. SD카드의 남은 용량을 활용할 수 있도록 파티션을 넓혀줘야 한다.  
+로보티즈 매뉴얼에는 간단한 커맨드 명령어로 이를 할 수 있는 방법이 나와있다.
+```bash
+$ sudo raspi-config
+  (select 7 Advanced Options > A1 Expand Filesystem)
+```
+
+그런데 라즈베리파이 하드웨어에 메모리 용량이 1GB 밖에 되지 않아 연산을 처리하는데 좀 부족할 수 있다.  
+**위 방법 대신** gparted를 이용하면 SD 카드에 swap 메모리를 할당할 수 있다.  
+swap 메모리는 저장장치의 메모리를 RAM 처럼 쓸 수 있게 해준다.  
+SD 카드에 swap 메모리를 할당하여 부족한 메모리 용량을 보충해보자. (옵션)
+- 인터넷을 연결하고 `gparted` 를 설치한다.
+    ```bash
+    sudo apt update
+    sudo apt install gparted
+    ```
+- 커맨드에서 `sudo gparted`를 실행한다.
+- 현재 파티션을 우클릭하여 'Resize/Move'를 선택한다.
+- 2GB만 남기고 SD 카드의 용량을 모두 할당한다.
+- 남은 2GB 자리에 우클릭하여 'New'를 선택한다.
+- 'File system: linux-swap' 을 선택하고 남은 용량을 할당하여 'Add'를 누른다.
+
+상단의 체크표시 (Apply all operations)를 누르면 파티션 재조정이 이루어진다.
+
+#### 2.3 시간 설정
+
+두 개의 PC가 ROS를 통해 통신을 하기 위해서는 시간을 동기화 해줘야 한다.
+```bash
+sudo apt-get install ntpdate
+sudo ntpdate ntp.ubuntu.com
+```
+
+#### 2.4 네트워크 설정
+
+Remote PC와 마찬가지로 라즈베리파이에서도 `.bashrc`에 있는 IP 설정을 수정한다.
+- `ifconfig` 명령어를 입력한다.
+- 출력에서 `inet addr:192.168.xxx.xxx` 로 시작하는 주소를 찾아 메모한다. 
+- `leafpad ~/.bashrc` 명령으로 파일을 연다.
+- 맨 아래 `ROS_MASTER_URI`와 `ROS_HOSTNAME`의 `localhost`를 IP 주소로 수정한다.  
+- `ROS_MASTER_URI`에는 Remote PC의 IP 주소를 쓴다.
+- `ROS_HOSTNAME`에는 SBC의 IP 주소를 쓴다.
+    - IP 주소는 `ifconfig` 명령어를 입력하여 출력에서 `inet addr:192.168.xxx.xxx` 로 시작하는 주소를 찾아 쓴다. 
+    - 기존
+        ```bash
+        export ROS_MASTER_URI=http://localhost:11311
+        export ROS_HOSTNAME=localhost
+        ```
+    - 수정 후 (예시)
+        ```bash
+        export ROS_MASTER_URI=http://192.168.0.49:11311
+        export ROS_HOSTNAME=192.168.0.30
+        ```
+- 저장 후 leafpad 를 닫는다.
+- 설정을 적용하기 위해 다음 명령어를 실행한다.
+    - `source ~/.bashrc`
+
+#### 2.5 원격 제어 확인
+
+Remote PC에서 ssh 명령어로 SBC의 터미널에 접속할 수 있다.
+아래 명령어를 입력하고 SBC의 비밀번호 (기본: turtlebot) 를 입력하면 터미널상의 사용자명이 `pi`로 바뀐다.
+```bash
+# 192.168.xxx.xxx 는 SBC의 IP 주소 == 2.4의 ROS_HOSTNAME
+$ ssh pi@192.168.xxx.xxx
+```
+
+이제 SBC에 모니터, 키보드, 마우스가 없어도 원격 접속을 통해 SBC를 제어 할 수 있다.  
+단지 커맨드로만 제어할 수 있어 약간 불편할 수는 있지만 어차피 SBC에서 해야하는 건 ROS를 활성화 명령어를 내리는 것 뿐이다.  
