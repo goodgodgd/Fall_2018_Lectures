@@ -62,19 +62,20 @@ $ cd ~/catkin_ws && catkin_make
 
 `gedit ~/.bashrc` 명령으로 .bashrc 파일을 열어보면 아래쪽에 ros 설치과정에서 추가된 스크립트가 있다.  
 맨 아래를 보면 두 개의 주소를 볼 수 있다.
-- `ROS_MASTER_URI` : 여러대의 PC가 통신하는 경우 한 PC가 master 역할을 해줘야한다. `ROS_MASTER_URI`는 master PC의 IP 주소이다. 통상 Remote PC가 그 역할을 한다.  
-- `ROS_HOSTNAME` : 자기 자신의 IP를 쓴다.
+- `ROS_MASTER_URI` : 여러대의 PC가 통신하는 경우 한 PC가 master 역할을 해줘야한다. `ROS_MASTER_URI`는 master PC의 IP 주소이다.  
+- `ROS_HOSTNAME` : ROS Node의 주소에 들어간다. 자기 자신의 IP를 쓴다.  
+
 기본 설정은 하나의 PC안에서 모든 동작을 하는 것이므로 두 주소 모두 `localhost`로 되어있다.  
 그러나 터틀봇의 SBC와 통신을 하기 위해서는 이를 IP 주소로 바꿔야 한다.  
-`ROS_HOSTNAME` 에는 당연히 해당 PC의 IP를 쓰고 Remote PC가 master 역할을 하니 `ROS_MASTER_URI`에도 같은 주소를 쓴다.  
 IP 주소는 `ifconfig` 명령어를 이용해 확인할 수 있다.    
 `inet addr:192.168.xxx.xxx` 로 시작하는 주소를 찾아 쓴다.
+Remote PC가 master 역할을 하니 `ROS_MASTER_URI`, `ROS_HOSTNAME` 둘 다 같은 주소를 쓴다.  
 다음은 설정 예시이다.
 ```bash
 export ROS_MASTER_URI=http://192.168.0.49:11311
 export ROS_HOSTNAME=192.168.0.49
 ```
-
+***
 
 ### 2. SBC Setup
 
@@ -103,7 +104,7 @@ export ROS_HOSTNAME=192.168.0.49
 - SBC에 SD 카드, 모니터, 키보드, 마우스를 연결하고 전원을 켠다.  
 - 기본 사용자명은 **pi**, 비밀번호는 **turtlebot** 이다.
 - 오른쪽 상단의 메뉴를 이용해 무선 인터넷에 연결할 수 있다.
-
+***
 
 #### 2.2 파티션 설정
 
@@ -130,6 +131,7 @@ SD 카드에 swap 메모리를 할당하여 부족한 메모리 용량을 보충
 - 'File system: linux-swap' 을 선택하고 남은 용량을 할당하여 'Add'를 누른다.
 
 상단의 체크표시 (Apply all operations)를 누르면 파티션 재조정이 이루어진다.
+***
 
 #### 2.3 시간 설정
 
@@ -138,6 +140,7 @@ SD 카드에 swap 메모리를 할당하여 부족한 메모리 용량을 보충
 sudo apt-get install ntpdate
 sudo ntpdate ntp.ubuntu.com
 ```
+***
 
 #### 2.4 네트워크 설정
 
@@ -162,6 +165,7 @@ Remote PC와 마찬가지로 라즈베리파이에서도 `.bashrc`에 있는 IP 
 - 저장 후 leafpad 를 닫는다.
 - 설정을 적용하기 위해 다음 명령어를 실행한다.
     - `source ~/.bashrc`
+***
 
 #### 2.5 원격 제어 확인
 
