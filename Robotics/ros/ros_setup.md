@@ -97,26 +97,45 @@ $ cd ~/catkin_ws && catkin_make
     ```
 ***
 
+#### 1.5 ROS 동작 테스트
+
+거북이와 놀아보세요.
+```bash
+$ roscore
+$ rosrun turtlesim turtlesim_node
+$ rosrun turtlesim turtle_teleop_key
+$ rosrun turtlesim rqt_graph
+```
+
 ### 2. SBC Setup
 
 원문: http://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#raspberry-pi-3-setup
 
+- 용어정리
+    - SBC: Single Board Computer의 약자로 하나의 보드 위에 프로세서, 메모리, 저장장치 등을 모아 
+    PC처럼 작동할 수 있는 장치. 여기서는 SBC 중 하나인 `Raspberry Pi 3`를 터틀봇에 올려 터틀봇을
+    제어하는데 사용한다. 
+    - Raspberry Pi 3: 라즈베리 파이는 영국 잉글랜드의 라즈베리 파이 재단이 학교와 개발도상국에서 
+    기초 컴퓨터 과학의 교육을 증진시키기 위해 개발한 신용카드 크기의 싱글 보드 컴퓨터이다. (위키)  
+    자세한 내용은 홈페지이 참조: https://www.raspberrypi.org/downloads/raspbian/
+    - Raspbian: 라즈비안은 라즈베리 파이의 개발사에서 만든 OS이자 공식 라즈베리 파이용 OS으로 
+    데비안 리눅스를 기반으로 만들어진 배포판이다.
 - 로보티즈 e-manual에서 라즈베리파이 하드웨어에 설치 할 수 있는 운영체제는 두 가지가 있다.  
-- `Raspberry Pi 3`와 `Ubuntu 16.04 MATE` (메이트가 아니다. 마테다.) 이다.  
-- 우분투 마테는 우분투에서 사용자 환경을 좀 다르게 바꾼 것인데 결과적으로 라즈베리파이3를 설치할 것을 권장한다.  
-- 둘 다 설치방법은 똑같은데 로보티즈에서 기본 라즈베리파이3에 ROS 패키지를 다 설치한 버전을 제공한다.  
-(기본 라즈베리파이3를 설치하여 Remote PC처럼 설치할 수도 있다.)  
+    - `Raspbian`와 `Ubuntu 16.04 MATE` (메이트 아니고 마테) 이다.  
+    - 우분투 마테는 우분투에서 사용자 환경을 좀 다르게 바꾼 것인데 결과적으로 라즈비안을 설치할 것을 권장한다.  
+    - 둘 다 설치방법은 똑같은데 로보티즈에서 기본 라즈비안에 ROS 패키지를 다 설치한 버전을 제공한다.  
+    (기본 라즈비안을 설치하여 Remote PC처럼 설치할 수도 있다.)  
 
 
-#### 2.1 Raspberry Pi 3 설치
+#### 2.1 Raspbian 설치
 
-라즈베리파이3 설치 방법은 다음과 같다.
+라즈비안 설치 방법은 다음과 같다.
 - [여기](http://www.robotis.com/service/download.php?no=730)에서 설치 파일을 다운받는다.
 - [여기](https://etcher.io/) 에서 etcher를 다운 받는다.
 - etcher 압축 파일을 압축 해제하고 실행한다.
     - 탐색기에서 Downloads 폴더로 들어가 `etcher-electron-1.4.5-linux-x64.zip` 압축파일을 우클릭하고 'Extract here'를 누르면 압축해제된 실행파일이 생긴다.
     - 실행파일을 더블클릭하면 설치할까요? 에 'yes'로 대답하면 실행된다.
-- `Select image': 다운받은 라즈베리파이3 이미지를 선택한다.
+- `Select image': 다운받은 라즈비안 이미지를 선택한다.
 - 'Select drive': SD 카드를 USB를 통해 연결하고 드라이브를 선택한다.
 - 'Burn'을 누르면 설치가 된다.
 
@@ -166,7 +185,7 @@ sudo ntpdate ntp.ubuntu.com
 
 #### 2.4 네트워크 설정
 
-Remote PC와 마찬가지로 라즈베리파이에서도 `.bashrc`에 있는 IP 설정을 수정한다.
+Remote PC와 마찬가지로 라즈비안에서도 `.bashrc`에 있는 IP 설정을 수정한다.
 - `ifconfig` 명령어를 입력한다.
 - 출력에서 `inet addr:192.168.xxx.xxx` 로 시작하는 주소를 찾아 메모한다. 
 - `leafpad ~/.bashrc` 명령으로 파일을 연다.

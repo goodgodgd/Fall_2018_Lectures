@@ -1,3 +1,5 @@
+% TODO: rigid_transform 처럼 명확한 notation으로 변경
+
 clc; clear
 
 % point object in homogeneous coordinates
