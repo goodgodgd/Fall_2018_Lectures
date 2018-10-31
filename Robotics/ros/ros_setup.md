@@ -16,7 +16,7 @@ SBC는 Remote PC에 센서 데이터를 전달해주고 Remote PC에서 오는 �
 
 #### 1.1 우분투 설치
 
-우분투 설치는 예전에 [여기](https://github.com/goodgodgd/Fall_2018_Lectures/blob/master/Robotics/00_LinuxInstallation.md) 
+우분투 설치는 예전에 [여기](https://github.com/goodgodgd/Fall_2018_Lectures/blob/master/Robotics/linux-basic/00_LinuxInstallation.md) 
 소개한 대로 가상 머신으로 설치한다.  
 가이드에 나와있는 우분투 버전이 16.04 이므로 이 버전을 설치한다.  
 유의할 점은 네트워크 설정이다. ROS가 직접 와이파이에 접속해야 하므로 기본 가상 머신의 네트워크 설정으로는 원격 통신이 되지 않는다.  
