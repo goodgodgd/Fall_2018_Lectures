@@ -104,7 +104,7 @@ $ cd ~/catkin_ws && catkin_make
 $ roscore
 $ rosrun turtlesim turtlesim_node
 $ rosrun turtlesim turtle_teleop_key
-$ rosrun turtlesim rqt_graph
+$ rosrun rqt_graph rqt_graph
 ```
 
 ### 2. SBC Setup
