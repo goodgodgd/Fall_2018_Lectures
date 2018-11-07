@@ -29,3 +29,20 @@
 5. Install qt
     - Visit https://download.qt.io/archive/qt/5.11/5.11.1/
     - Install it by double click
+
+6. Additional settings
+    - 외부 USB 연결
+        - [여기](https://www.virtualbox.org/wiki/Downloads) 
+        에서 다운로드 후 설치: "VirtualBox Extension Pack"
+        - 가상 머신 시작
+        - "장치" - "게스트 확장 CD 이미지 삽입" 후 설치
+        - 가상 머신 재시작
+        - "장치" - "USB" - 연결할 USB 선택
+    - host PC와 공유 폴더 설정
+        - 외부 USB 설정처럼 설치
+        - VirtualBox에서 "설정" - "공유폴더" - "머신폴더" 아래에 공유할 폴더 선택 
+        - 재시작
+    - 시스템이 너무 느릴 때
+        - VirtualBox 실행
+        - 가상머신 우클릭 - "설정" - "시스템" - "프로세서" 에서 프로세서 개수 할당
+
