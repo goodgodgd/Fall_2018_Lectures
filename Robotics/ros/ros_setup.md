@@ -31,8 +31,8 @@ SBC는 Remote PC에 센서 데이터를 전달해주고 Remote PC에서 오는 �
 
 설치 스크립트를 다운 받아 스크립트를 실행한다.
 ```bash
-$ sudo apt-get update
-$ sudo apt-get upgrade
+$ sudo apt update
+$ sudo apt upgrade
 $ cd Downloads
 $ wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_kinetic.sh && chmod 755 ./install_ros_kinetic.sh && bash ./install_ros_kinetic.sh
 ```
@@ -44,21 +44,7 @@ $ wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/instal
 설치가 다 되어 "Complete!!!" 가 뜨면 **PC 리부트**
 ***
 
-#### 1.3 터틀봇 제어 패키지 설치
-
-터틀봇을 제어할 수 있는 패키지를 설치한다.
-저장소에 없는 패키지는 소스를 받아 catkin 으로 빌드한다.
-
-```bash
-$ sudo apt-get install ros-kinetic-joy ros-kinetic-teleop-twist-joy ros-kinetic-teleop-twist-keyboard ros-kinetic-laser-proc ros-kinetic-rgbd-launch ros-kinetic-depthimage-to-laserscan ros-kinetic-rosserial-arduino ros-kinetic-rosserial-python ros-kinetic-rosserial-server ros-kinetic-rosserial-client ros-kinetic-rosserial-msgs ros-kinetic-amcl ros-kinetic-map-server ros-kinetic-move-base ros-kinetic-urdf ros-kinetic-xacro ros-kinetic-compressed-image-transport ros-kinetic-rqt-image-view ros-kinetic-gmapping ros-kinetic-navigation ros-kinetic-interactive-markers
-$ cd ~/catkin_ws/src/
-$ git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
-$ git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
-$ cd ~/catkin_ws && catkin_make
-```
-***
-
-#### 1.4 네트워크 설정
+#### 1.3 네트워크 설정
 
 - `gedit ~/.bashrc` 명령으로 .bashrc 파일을 열어보면 아래쪽에 ros 설치과정에서 추가된 스크립트가 있다.  
 - 맨 아래를 보면 두 개의 주소를 볼 수 있다.
@@ -97,6 +83,27 @@ $ cd ~/catkin_ws && catkin_make
     ```
 ***
 
+#### 1.4 터틀봇 제어 패키지 설치
+
+터틀봇을 제어할 수 있는 패키지를 설치한다.
+저장소에 없는 패키지는 소스를 받아 catkin 으로 빌드한다.
+
+```bash
+$ sudo apt install ros-kinetic-joy ros-kinetic-teleop-twist-joy ros-kinetic-teleop-twist-keyboard ros-kinetic-laser-proc ros-kinetic-rgbd-launch ros-kinetic-depthimage-to-laserscan ros-kinetic-rosserial-arduino ros-kinetic-rosserial-python ros-kinetic-rosserial-server ros-kinetic-rosserial-client ros-kinetic-rosserial-msgs ros-kinetic-amcl ros-kinetic-map-server ros-kinetic-move-base ros-kinetic-urdf ros-kinetic-xacro ros-kinetic-compressed-image-transport ros-kinetic-rqt-image-view ros-kinetic-gmapping ros-kinetic-navigation ros-kinetic-interactive-markers
+$ cd ~/catkin_ws/src/
+$ git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+$ git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+$ cd ~/catkin_ws && catkin_make
+```
+
+그리고 .bashrc 에서 추가해야 할 스크립트가 한줄 더 있다.
+```bash
+export TURTLEBOT3_MODEL=burger 
+```
+이걸 추가해야 turtlebot3 패키지에서 정확한 제어대상을 알 수 있다.
+
+***
+
 #### 1.5 ROS 동작 테스트
 
 거북이와 놀아보세요.
@@ -106,6 +113,8 @@ $ rosrun turtlesim turtlesim_node
 $ rosrun turtlesim turtle_teleop_key
 $ rosrun rqt_graph rqt_graph
 ```
+
+***
 
 ### 2. SBC Setup
 
@@ -145,7 +154,7 @@ $ rosrun rqt_graph rqt_graph
 - 오른쪽 상단의 메뉴를 이용해 무선 인터넷에 연결할 수 있다.
 ***
 
-#### 2.2 파티션 설정
+#### 2.2 파티션 확장
 
 1. 기본 설정  
     기본 파티션은 설치된 패키지들로 남은 용량이 없다. SD카드의 남은 용량을 활용할 수 있도록 파티션을 넓혀줘야 한다.  
@@ -178,19 +187,19 @@ $ rosrun rqt_graph rqt_graph
 
 두 개의 PC가 ROS를 통해 통신을 하기 위해서는 시간을 동기화 해줘야 한다.
 ```bash
-sudo apt-get install ntpdate
+sudo apt install ntpdate
 sudo ntpdate ntp.ubuntu.com
 ```
 ***
 
 #### 2.4 네트워크 설정
 
-Remote PC와 마찬가지로 라즈비안에서도 `.bashrc`에 있는 IP 설정을 수정한다.
+Remote PC (1.3)와 마찬가지로 라즈비안에서도 `.bashrc`에 있는 IP 설정을 수정한다.
 - `ifconfig` 명령어를 입력한다.
 - 출력에서 `inet addr:192.168.xxx.xxx` 로 시작하는 주소를 찾아 메모한다. 
 - `leafpad ~/.bashrc` 명령으로 파일을 연다.
 - 맨 아래 `ROS_MASTER_URI`와 `ROS_HOSTNAME`의 `localhost`를 IP 주소로 수정한다.  
-- `ROS_MASTER_URI`에는 Remote PC의 IP 주소를 쓴다.
+- `ROS_MASTER_URI`에는 **Remote PC**의 IP 주소를 쓴다.
 - `ROS_HOSTNAME`에는 SBC의 IP 주소를 쓴다.
     - IP 주소는 `ifconfig` 명령어를 입력하여 출력에서 `inet addr:192.168.xxx.xxx` 로 시작하는 주소를 찾아 쓴다. 
     - 기존
