@@ -32,8 +32,8 @@ add_executable(topic_publisher src/topic_publisher.cpp)
 # 실행파일을 빌드하기 전에 메시지 파일 등을 먼저 헤더로 변환하여 빌드해야 한다.
 # 새로운 메시지를 정의할 때 관습적으로 붙이자.
 add_dependencies(topic_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-# cmake 명령중 link_libraries()는 전체 빌드시 필요한 라이브러리를 지정한다.
-# target_link_libraries()는 특정 타겟을 빌드할 때 필요한 라이브러리를 지정한다.
+# cmake 명령중 link_libraries 는 전체 빌드시 필요한 라이브러리를 지정한다.
+# target_link_libraries 는 특정 타겟을 빌드할 때 필요한 라이브러리를 지정한다.
 # 참조: https://www.tuwlab.com/27260
 target_link_libraries(topic_publisher ${catkin_LIBRARIES})
 
@@ -41,4 +41,3 @@ target_link_libraries(topic_publisher ${catkin_LIBRARIES})
 add_executable(topic_subscriber src/topic_subscriber.cpp)
 add_dependencies(topic_subscriber ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(topic_subscriber ${catkin_LIBRARIES})
-

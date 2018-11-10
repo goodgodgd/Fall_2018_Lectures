@@ -1,37 +1,47 @@
-#include "ros/ros.h"                            // ROS Default Header File
-#include "ros_tutorials_topic/MsgTutorial.h"    // MsgTutorial Message File Header. The header file is automatically created when building the package.
+// ROS Default Header File
+#include "ros/ros.h"
+// MsgTutorial Message File Header. 빌드시 MsgTutorial.msg 파일로부터 자동 생성됨
+#include "ros_tutorials_topic/MsgTutorial.h"
 
-int main(int argc, char **argv)                 // Node Main Function
+int main(int argc, char **argv)		// Node Main Function
 {
-  ros::init(argc, argv, "topic_publisher");     // Initializes Node Name
-  ros::NodeHandle nh;                           // Node handle declaration for communication with ROS system
+  // 노드 네임 초기화
+  ros::init(argc, argv, "topic_publisher");
+  // Node handle declaration for communication with ROS system
+  ros::NodeHandle nh;
 
-  // Declare publisher, create publisher 'ros_tutorial_pub' using the 'MsgTutorial'
-  // message file from the 'ros_tutorials_topic' package. The topic name is
-  // 'ros_tutorial_msg' and the size of the publisher queue is set to 100.
-  ros::Publisher ros_tutorial_pub = nh.advertise<ros_tutorials_topic::MsgTutorial>("ros_tutorial_msg", 100);
+  // Declare publisher: 'ros_tutorial_pub' using the 'MsgTutorial'
+  // 토픽 네임: 'ros_tutorial_msg' 
+  // 퍼블리셔 큐 사이즈: 100 (100개의 메시지까지 버퍼에 쌓아둘 수 있음)
+  ros::Publisher ros_tutorial_pub = 
+  	nh.advertise<ros_tutorials_topic::MsgTutorial>
+  		("ros_tutorial_msg", 100);
 
-  // Set the loop period. '10' refers to 10 Hz and the main loop repeats at 0.1 second intervals
+  // loop 빈도 설정, 초당 10번의 loop 반복
   ros::Rate loop_rate(10);
 
-  ros_tutorials_topic::MsgTutorial msg;     // Declares message 'msg' in 'MsgTutorial' message file format
-  int count = 0;                            // Variable to be used in message
+  // Declares message 'msg' in 'MsgTutorial' message file format
+  ros_tutorials_topic::MsgTutorial msg;     
+  int count = 0;
 
+  // ros나 노드 상태에 이상이 생기지 않는 한 무한 반복
   while (ros::ok())
   {
-    msg.stamp = ros::Time::now();           // Save current time in the stamp of 'msg'
-    msg.data  = count;                      // Save the the 'count' value in the data of 'msg'
+    // msg.stamp 에 현재 시각 저장, msg.data 에 'count' 저장
+    msg.stamp = ros::Time::now();
+    msg.data  = count;
 
-    ROS_INFO("send msg = %d", msg.stamp.sec);   // Prints the 'stamp.sec' message
-    ROS_INFO("send msg = %d", msg.stamp.nsec);  // Prints the 'stamp.nsec' message
-    ROS_INFO("send msg = %d", msg.data);        // Prints the 'data' message
+	// msg 변수 정보 출력
+    ROS_INFO("send msg.stamp.sec = %d", msg.stamp.sec); 
+    ROS_INFO("send msg.stamp.nsec = %d", msg.stamp.nsec);
+    ROS_INFO("send msg.data = %d", msg.data);
 
-    ros_tutorial_pub.publish(msg);          // Publishes 'msg' message
-
-    loop_rate.sleep();                      // Goes to sleep according to the loop rate defined above.
-
-    ++count;                                // Increase count variable by one
+	// msg를 발행
+    ros_tutorial_pub.publish(msg);
+    
+    // 앞서 지정한 주기만큼(0.1s) 정지
+    loop_rate.sleep();
+    ++count;
   }
-
   return 0;
 }
