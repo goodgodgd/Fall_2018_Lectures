@@ -15,7 +15,7 @@ void msgCallback(const ros_tutorials_topic::MsgTutorial::ConstPtr& msg)
 
 int main(int argc, char **argv)
 {
-  // 노드 네임 초기화: 특별히 이름을 지정하지 않고 노드를 실행하면 /topic_subscriber 란 네임을 갖게 된다.
+  // 노드 네임 초기화: 특별히 이름을 지정하지 않고 노드를 실행하면 "/topic_subscriber" 란 네임을 갖게 된다.
   ros::init(argc, argv, "topic_subscriber");
   // Node handle declaration for communication with ROS system
   ros::NodeHandle nh;

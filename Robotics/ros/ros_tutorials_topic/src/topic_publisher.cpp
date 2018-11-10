@@ -5,7 +5,7 @@
 
 int main(int argc, char **argv)		// Node Main Function
 {
-  // 노드 네임 초기화: 특별히 이름을 지정하지 않고 노드를 실행하면 /topic_publisher 란 네임을 갖게 된다.
+  // 노드 네임 초기화: 특별히 이름을 지정하지 않고 노드를 실행하면 "/topic_publisher" 란 네임을 갖게 된다.
   ros::init(argc, argv, "topic_publisher");
   // Node handle declaration for communication with ROS system
   ros::NodeHandle nh;
