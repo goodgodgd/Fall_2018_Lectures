@@ -128,8 +128,8 @@ target_link_libraries(topic_subscriber ${catkin_LIBRARIES})
 
 #### 용어 정리
 메시지라는 용어는 원래 노드간의 통신(토픽, 서비스, 액션)에 사용되는 일반적인 데이터 형식을 의미한다.  
-메시지를 파일로 정의할 때는 토픽의 경우 .msg 파일을 작성하고 서비스는 .srv, 액션은 .action 파일을 작성해야 한다.  
-여기서는 토픽만을 다루고 있기 때문에 여기서 말하는 메시지는 **토픽의 데이터 형식**을 말한다.  
+메시지를 파일로 정의할 때는 토픽의 경우 .msg 파일 (메시지 파일)을 작성하고 서비스는 .srv 파일 (서비스 파일)을 작성해야 한다.  
+여기서는 토픽만을 다루고 있기 때문에 용어가 혼용되는데 여기서 말하는 메시지는 주로 **토픽의 데이터 형식(=메시지 파일)**을 말한다.  
 
 노드는 메시지에 고유의 네임을 붙여 정보를 보내고 수신 측에서도 네임으로 메시지를 식별하여 받는다.  
 기본 메시지 자료형과 메시지 구성 방법은 위키를 참조한다. http://wiki.ros.org/msg  
@@ -172,7 +172,7 @@ $ gedit topic_publisher.cpp
 
 int main(int argc, char **argv)		// Node Main Function
 {
-  // 노드 네임 초기화: 특별히 이름을 지정하지 않고 노드를 실행하면 /topic_publisher 란 네임을 갖게 된다.
+  // 노드 네임 초기화: 특별히 이름을 지정하지 않고 노드를 실행하면 "/topic_publisher" 란 네임을 갖게 된다.
   ros::init(argc, argv, "topic_publisher");
   // Node handle declaration for communication with ROS system
   ros::NodeHandle nh;
@@ -249,7 +249,7 @@ void msgCallback(const ros_tutorials_topic::MsgTutorial::ConstPtr& msg)
 
 int main(int argc, char **argv)
 {
-  // 노드 네임 초기화: 특별히 이름을 지정하지 않고 노드를 실행하면 /topic_subscriber 란 네임을 갖게 된다.
+  // 노드 네임 초기화: 특별히 이름을 지정하지 않고 노드를 실행하면 "/topic_subscriber" 란 네임을 갖게 된다.
   ros::init(argc, argv, "topic_subscriber");
   // Node handle declaration for communication with ROS system
   ros::NodeHandle nh;
@@ -318,17 +318,34 @@ Scanning dependencies of target std_msgs_generate_messages_cpp
 [  5%] Built target tf_generate_messages_eus
 ...
 # !! 기존에 빌드되지 않은 타겟들 빌드
-Scanning dependencies of target topic_publisher
-[ 94%] Built target ros_tutorials_topic_generate_messages
-Scanning dependencies of target topic_subscriber
-[ 94%] Built target turtlebot3_example_generate_messages
-[ 95%] Building CXX object ros_tutorials_topic/CMakeFiles/topic_publisher.dir/src/topic_publisher.cpp.o
-[ 97%] Building CXX object ros_tutorials_topic/CMakeFiles/topic_subscriber.dir/src/topic_subscriber.cpp.o
+...
 [ 98%] Linking CXX executable /home/ian/catkin_ws/devel/lib/ros_tutorials_topic/topic_publisher
 [100%] Linking CXX executable /home/ian/catkin_ws/devel/lib/ros_tutorials_topic/topic_subscriber
 # !! topic_publisher와 topic_subscriber가 빌드가 잘 되었다.
 [100%] Built target topic_publisher
 [100%] Built target topic_subscriber
+```
+
+빌드 결과물들을 확인해보자.
+```bash
+# build: 빌드를 위한 중간 결과물들이 있다. 
+# cmake를 통해 Makefile이 생성된 것을 볼 수 있다.
+$ ls ~/catkin_ws/build/ros_tutorials_topic/
+catkin_generated  CMakeFiles           CTestTestfile.cmake
+cmake             cmake_install.cmake  Makefile
+
+# devel: 빌드를 마치고 생성된 (사용자가 사용할) 결과물만 모여있다.
+# devel/include/package_name : 소스코드에서 사용하는 헤더 파일들을 이곳으로 모은다.
+# "MsgTutorial.h" 헤더가 생성된 것을 확인할 수 있다.
+# 소스코드에서는 이 헤더를 include 하여 메시지 객체를 만들어 전송한다.
+$ ls ~/catkin_ws/devel/include/ros_tutorials_topic/
+MsgTutorial.h
+
+# devel/lib/package_name : 빌드하여 생성된 실행 파일이나 라이브러리 파일을 이곳으로 모은다.
+# "topic_publisher", "topic_subscriber" 두 개의 노드 실행 파일이 생성된 것을 확인할 수 있다.
+# rosrun을 실행하면 이곳의 실행 파일들을 검색하여 노드를 실행한다.
+$ ls ~/catkin_ws/devel/lib/ros_tutorials_topic/
+topic_publisher  topic_subscriber
 ```
 
 ### 6.2 퍼블리셔 실행
