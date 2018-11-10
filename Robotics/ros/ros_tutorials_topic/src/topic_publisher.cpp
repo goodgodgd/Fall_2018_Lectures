@@ -10,17 +10,18 @@ int main(int argc, char **argv)		// Node Main Function
   // Node handle declaration for communication with ROS system
   ros::NodeHandle nh;
 
-  // 퍼블리셔 선언: 'MsgTutorial' 타입의 메시지를 발행하는 객체 'ros_tutorial_pub'를 NodeHandle을 통해 생성
+  // 퍼블리셔 선언: 'MsgTutorial' 타입의 메시지를 발행하는 객체 
+  // 'ros_tutorial_pub'를 NodeHandle을 통해 생성
   // 발행 할 토픽 네임: 'ros_tutorial_msg' 
   // 퍼블리셔 큐 사이즈: 100 (100개의 메시지까지 버퍼에 쌓아둘 수 있음)
   ros::Publisher ros_tutorial_pub = 
   	nh.advertise<ros_tutorials_topic::MsgTutorial>
-  		("ros_tutorial_msg", 100);
+      ("ros_tutorial_msg", 100);
 
   // loop 빈도 설정, 초당 10번의 loop 반복
   ros::Rate loop_rate(10);
 
-  // Declares message 'msg' in 'MsgTutorial' message file format
+  // 메시지 데이터 객체 생성
   ros_tutorials_topic::MsgTutorial msg;     
   int count = 0;
 

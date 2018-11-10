@@ -20,7 +20,8 @@ int main(int argc, char **argv)
   // Node handle declaration for communication with ROS system
   ros::NodeHandle nh;
 
-  // 서브스크라이버 선언: 'MsgTutorial' 타입의 메시지를 구독하는 객체 'ros_tutorial_sub'를 NodeHandle을 통해 생성
+  // 서브스크라이버 선언: 'MsgTutorial' 타입의 메시지를 구독하는 객체 
+  // 'ros_tutorial_sub'를 NodeHandle을 통해 생성
   // 구독 할 토픽 네임: 'ros_tutorial_msg' 
   // 퍼블리셔 큐 사이즈: 100 (100개의 메시지까지 버퍼에 쌓아둘 수 있음)
   // 토픽이 발행될 경우 이를 수신하여 처리하는 콜백 함수 'msgCallback' 등록

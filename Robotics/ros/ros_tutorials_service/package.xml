@@ -6,12 +6,12 @@
 
 <package>
   <!-- 패키지 이름은 자동으로 지정됨, 수정할 시 이름이 틀리지 않게 주의 -->
-  <name>ros_tutorials_topic</name>
+  <name>ros_tutorials_service</name>
   <!-- 기본 생성시 버전은 0.0.0 인데 원하는대로 수정 가능 -->
   <version>0.1.0</version>
 
   <!-- 위키를 만들면 자동으로 이 문구가 업로드 됨 -->
-  <description>ROS turtorial package to learn the topic</description>
+  <description>ROS turtorial package to learn the service</description>
   <!-- 저작권, 저자, 관리자 등 추가정보 -->
   <license>BSD</license>
   <author email="id@sch.ac.kr">your name</author>
