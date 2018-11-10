@@ -1,17 +1,17 @@
 // ROS Default Header File
 #include "ros/ros.h"
-// MsgTutorial Message File Header. 빌드시 MsgTutorial.msg 파일로부터 자동 생성됨
+// MsgTutorial Message Header. 빌드시 MsgTutorial.msg 파일로부터 자동 생성됨
 #include "ros_tutorials_topic/MsgTutorial.h"
 
 int main(int argc, char **argv)		// Node Main Function
 {
-  // 노드 네임 초기화
+  // 노드 네임 초기화: 특별히 이름을 지정하지 않고 노드를 실행하면 /topic_publisher 란 네임을 갖게 된다.
   ros::init(argc, argv, "topic_publisher");
   // Node handle declaration for communication with ROS system
   ros::NodeHandle nh;
 
-  // Declare publisher: 'ros_tutorial_pub' using the 'MsgTutorial'
-  // 토픽 네임: 'ros_tutorial_msg' 
+  // 퍼블리셔 선언: 'MsgTutorial' 타입의 메시지를 발행하는 객체 'ros_tutorial_pub'를 NodeHandle을 통해 생성
+  // 발행 할 토픽 네임: 'ros_tutorial_msg' 
   // 퍼블리셔 큐 사이즈: 100 (100개의 메시지까지 버퍼에 쌓아둘 수 있음)
   ros::Publisher ros_tutorial_pub = 
   	nh.advertise<ros_tutorials_topic::MsgTutorial>
@@ -45,3 +45,4 @@ int main(int argc, char **argv)		// Node Main Function
   }
   return 0;
 }
+

@@ -5,7 +5,7 @@ ROS 패키지를 만드는 과정도 함께 공부해 봅시다.
 
 ## 1. 패키지 생성
 
-패키지는 `catkin_create_pkg` 명령어를 이용해 생성할 수 있습니다.
+패키지는 `catkin_create_pkg` 명령어를 이용해 생성할 수 있다.
 ```bash
 # ros 패키지는 ~/catkin_ws/src 이곳에 생성해야 합니다.
 $ cd ~/catkin_ws/src
@@ -127,9 +127,9 @@ target_link_libraries(topic_subscriber ${catkin_LIBRARIES})
 ## 3. 메시지 파일 작성
 
 #### 용어 정리
-메시지라는 용어는 원래 노드간의 통신(토픽, 서비스, 액션)에 사용되는 데이터 형식을 의미한다.  
-메시지를 파일로 정의할 때는 토픽 .msg 파일을 작성하고 서비스는 .srv, 액션은 .action 파일을 작성해서  
-여기서 말하는 **메시지**는 토픽의 데이터 형식을 말한다.  
+**메시지라는 용어는 원래 노드간의 통신(토픽, 서비스, 액션)에 사용되는 일반적인 데이터 형식**을 의미한다.  
+메시지를 파일로 정의할 때는 토픽의 경우 .msg 파일을 작성하고 서비스는 .srv, 액션은 .action 파일을 작성해서  
+**여기서 말하는 메시지는 토픽의 데이터 형식**을 말한다.  
 
 노드는 메시지에 고유의 네임을 붙여 정보를 보내고 수신 측에서도 네임으로 메시지를 식별하여 받는다.  
 기본 메시지 자료형과 메시지 구성 방법은 위키를 참조한다. http://wiki.ros.org/msg  
@@ -167,18 +167,18 @@ $ gedit topic_publisher.cpp
 ```cpp
 // ROS Default Header File
 #include "ros/ros.h"
-// MsgTutorial Message File Header. 빌드시 MsgTutorial.msg 파일로부터 자동 생성됨
+// MsgTutorial Message Header. 빌드시 MsgTutorial.msg 파일로부터 자동 생성됨
 #include "ros_tutorials_topic/MsgTutorial.h"
 
 int main(int argc, char **argv)		// Node Main Function
 {
-  // 노드 네임 초기화
+  // 노드 네임 초기화: 특별히 이름을 지정하지 않고 노드를 실행하면 /topic_publisher 란 네임을 갖게 된다.
   ros::init(argc, argv, "topic_publisher");
   // Node handle declaration for communication with ROS system
   ros::NodeHandle nh;
 
-  // Declare publisher: 'ros_tutorial_pub' using the 'MsgTutorial'
-  // 토픽 네임: 'ros_tutorial_msg' 
+  // 퍼블리셔 선언: 'MsgTutorial' 타입의 메시지를 발행하는 객체 'ros_tutorial_pub'를 NodeHandle을 통해 생성
+  // 발행 할 토픽 네임: 'ros_tutorial_msg' 
   // 퍼블리셔 큐 사이즈: 100 (100개의 메시지까지 버퍼에 쌓아둘 수 있음)
   ros::Publisher ros_tutorial_pub = 
   	nh.advertise<ros_tutorials_topic::MsgTutorial>
@@ -213,25 +213,209 @@ int main(int argc, char **argv)		// Node Main Function
   return 0;
 }
 ```
+---
 
+## 5. 서브스크라이버 노드 작성
 
+퍼블리셔와 마찬가지로 서브스크라이버 노드의 실행파일을 생성하기 위해 `CMakeLists.txt`에 다음 줄을 추가하였다. 
 
+```cmake
+add_executable(topic_subscriber src/topic_subscriber.cpp)
+```
 
+실행 파일을 `src/topic_subscriber.cpp` 로부터 만든다고 했으므로 소스 파일을 만든다.
 
+```bash
+$ roscd ros_tutorials_topic/src
+$ gedit topic_subscriber.cpp
+```
 
+소스 파일을 다음과 같이 작성하자.
+```cpp
+// ROS Default Header File
+#include "ros/ros.h"
+// MsgTutorial Message Header. 빌드시 MsgTutorial.msg 파일로부터 자동 생성됨
+#include "ros_tutorials_topic/MsgTutorial.h"
 
+// 'ros_tutorial_msg'라는 네임을 갖는 메시지가 수신되었을 때 실행되는 함수
+// 'ros_tutorials_topic' 패키지의 'MsgTutorial' 메시지를 받도록 되어있다.
+void msgCallback(const ros_tutorials_topic::MsgTutorial::ConstPtr& msg)
+{
+  // 수신된 메시지 데이터 프린트
+  ROS_INFO("recieve msg.stamp.sec = %d", msg->stamp.sec); 
+  ROS_INFO("recieve msg.stamp.nsec = %d", msg->stamp.nsec);
+  ROS_INFO("recieve msg.data = %d", msg->data);
+}
 
+int main(int argc, char **argv)
+{
+  // 노드 네임 초기화: 특별히 이름을 지정하지 않고 노드를 실행하면 /topic_subscriber 란 네임을 갖게 된다.
+  ros::init(argc, argv, "topic_subscriber");
+  // Node handle declaration for communication with ROS system
+  ros::NodeHandle nh;
 
+  // 서브스크라이버 선언: 'MsgTutorial' 타입의 메시지를 구독하는 객체 'ros_tutorial_sub'를 NodeHandle을 통해 생성
+  // 구독 할 토픽 네임: 'ros_tutorial_msg' 
+  // 퍼블리셔 큐 사이즈: 100 (100개의 메시지까지 버퍼에 쌓아둘 수 있음)
+  // 토픽이 발행될 경우 이를 수신하여 처리하는 콜백 함수 'msgCallback' 등록
+  ros::Subscriber ros_tutorial_sub = nh.subscribe("ros_tutorial_msg", 100, msgCallback);
 
+  // 메시지가 수신되기를 대기하다가, 수신되었을 경우 콜백함수를 실행
+  ros::spin();
+  return 0;
+}
+```
+---
 
+## 6. 노드 빌드 및 실행
 
+### 6.1 빌드 (노드 실행 파일 생성)
 
+```bash
+# 캐킨 경로로 이동
+$ cd ~/catkin_ws
+# 캐킨 빌드 실행: ~/catkin_ws/src 의 모든 패키지 빌드
+$ catkin_make
+```
+빌드 과정에서 나온 출력을 살펴보자. `# !!`은 설명을 위해 덧붙인 주석 표시이다.
+```bash
+# !! 빌드 설정 출력
+Base path: /home/ian/catkin_ws
+Source space: /home/ian/catkin_ws/src
+Build space: /home/ian/catkin_ws/build
+Devel space: /home/ian/catkin_ws/devel
+Install space: /home/ian/catkin_ws/install
+...
+-- Using CATKIN_DEVEL_PREFIX: /home/ian/catkin_ws/devel
+-- Using CMAKE_PREFIX_PATH: /home/ian/catkin_ws/devel;/opt/ros/kinetic
+-- This workspace overlays: /home/ian/catkin_ws/devel;/opt/ros/kinetic
+-- Using PYTHON_EXECUTABLE: /usr/bin/python
+# !! 빌드할 패키지 목록 출력
+-- ~~  traversing 13 packages in topological order:
+-- ~~  - my_first_ros_pkg
+...
+-- ~~  - ros_tutorials_topic
+-- ~~  - turtlebot3_bringup
+-- ~~  - turtlebot3_example
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# !! 기타 cmake 설정 메시지들
+...
 
+# !! cmake에서 소스 파일의 연결관계를 확인하고 의존 패키지들도 모두 확인하여 Makefile 생성함
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/ian/catkin_ws/build
 
+# !! 이제 빌드 시작
+#### Running command: "make -j3 -l3" in "/home/ian/catkin_ws/build"
+# !! 기존에 이미 빌드된 패키지들은 변경사항이 없으면 다시 빌드하지 않고 넘어감
+Scanning dependencies of target std_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target _turtlebot3_msgs_generate_messages_check_deps_VersionInfo
+...
+[  5%] Built target nav_msgs_generate_messages_nodejs
+[  5%] Built target nav_msgs_generate_messages_cpp
+[  5%] Built target tf_generate_messages_eus
+...
+# !! 기존에 빌드되지 않은 타겟들 빌드
+Scanning dependencies of target topic_publisher
+[ 94%] Built target ros_tutorials_topic_generate_messages
+Scanning dependencies of target topic_subscriber
+[ 94%] Built target turtlebot3_example_generate_messages
+[ 95%] Building CXX object ros_tutorials_topic/CMakeFiles/topic_publisher.dir/src/topic_publisher.cpp.o
+[ 97%] Building CXX object ros_tutorials_topic/CMakeFiles/topic_subscriber.dir/src/topic_subscriber.cpp.o
+[ 98%] Linking CXX executable /home/ian/catkin_ws/devel/lib/ros_tutorials_topic/topic_publisher
+[100%] Linking CXX executable /home/ian/catkin_ws/devel/lib/ros_tutorials_topic/topic_subscriber
+# !! topic_publisher와 topic_subscriber가 빌드가 잘 되었다.
+[100%] Built target topic_publisher
+[100%] Built target topic_subscriber
+```
 
+### 6.2 퍼블리셔 실행
 
+다음 명령어로 퍼블리셔를 실행해 보자.  
+두 번째 줄은 `ros_tutorial_topic` 패키지의 `topic_publisher` 노드를 실행한다.  
+노드 네임은 퍼블리셔 코드에서 설정한대로 `/topic_publisher`로 기본 지정된다.
+```bash
+# 현재 실행된 마스터가 없다면 마스터 실행
+$ roscore
+# 새 탭 (ctrl+alt+t) 후
+$ rosrun ros_tutorial_topic topic_publisher
+```
+출력 화면은 다음과 같다.  
+퍼블리셔에서 ROS_INFO() 함수를 통해 발행하는 메시지 정보를 프린트 하고 있다.  
+```bash
+ian@ian:~$ rosrun ros_tutorials_topic topic_publisher 
+[ INFO] [1541831179.697112616]: send msg.stamp.sec = 1541831179
+[ INFO] [1541831179.697172543]: send msg.stamp.nsec = 697069994
+[ INFO] [1541831179.697192040]: send msg.data = 0
+[ INFO] [1541831179.797259465]: send msg.stamp.sec = 1541831179
+[ INFO] [1541831179.797313766]: send msg.stamp.nsec = 797227852
+[ INFO] [1541831179.797332169]: send msg.data = 1
+[ INFO] [1541831179.897833911]: send msg.stamp.sec = 1541831179
+[ INFO] [1541831179.897876527]: send msg.stamp.nsec = 897801549
+[ INFO] [1541831179.897889909]: send msg.data = 2
+[ INFO] [1541831179.999185339]: send msg.stamp.sec = 1541831179
+[ INFO] [1541831179.999225632]: send msg.stamp.nsec = 999153431
+[ INFO] [1541831179.999239483]: send msg.data = 3
+[ INFO] [1541831180.097754614]: send msg.stamp.sec = 1541831180
+[ INFO] [1541831180.097801286]: send msg.stamp.nsec = 97718615
+...
+```
+`ros_tutorial_msg` 토픽을 확인하기 위해 우선 현재 발행중인 토픽 목록을 확인한다.
+```bash
+$ rostopic list
+/ros_tutorial_msg
+/rosout
+/rosout_agg
+```
+`/ros_tutorial_msg` 토픽이 발행 중임을 알 수 있다. 그렇다면 발행되는 메시지 내용을 확인해보자.
+```bash
+$ rostopic echo /ros_tutorial_msg
+stamp: 
+  secs: 1541831573
+  nsecs:   7214567
+data: 3369
+---
+stamp: 
+  secs: 1541831573
+  nsecs: 106731134
+data: 3370
+---
+stamp: 
+  secs: 1541831573
+  nsecs: 207368135
+data: 3371
+---
+...
+```
+`/ros_tutorial_msg` 토픽으로 메시지들이 네트워크 상으로 발행되고 있음을 확인할 수 있다.
 
+### 6.3 서브스크라이버 실행
 
+다음 명령어로 서브스크라이버를 실행해 보자.
+`ros_tutorial_topic` 패키지의 `topic_subscriber` 노드를 실행한다.  
+노드 네임은 서브스크라이버 코드에서 설정한대로 `/topic_subscriber`로 기본 지정된다.  
+```bash
+# 새 탭 (ctrl+alt+t) 후
+$ rosrun ros_tutorials_topic topic_subscriber
+```
+출력 화면은 다음과 같다.  
+서브스크라이버 노드에서 수신 받은 데이터를 ROS_INFO() 함수를 통해 메시지를 프린트 하고 있다.  
 
+```bash
+[ INFO] [1541832480.410315224]: recieve msg.stamp.sec = 1541832480
+[ INFO] [1541832480.410366307]: recieve msg.stamp.nsec = 409756761
+[ INFO] [1541832480.410380701]: recieve msg.data = 12443
+[ INFO] [1541832480.507663466]: recieve msg.stamp.sec = 1541832480
+[ INFO] [1541832480.507707152]: recieve msg.stamp.nsec = 507270214
+[ INFO] [1541832480.507721908]: recieve msg.data = 12444
+[ INFO] [1541832480.607211223]: recieve msg.stamp.sec = 1541832480
+[ INFO] [1541832480.607241362]: recieve msg.stamp.nsec = 606816000
+[ INFO] [1541832480.607257491]: recieve msg.data = 12445
+...
+```
+`rqt_graph` 명령어를 통해 노드와 메시지의 연결 관계를 확인할 수 있다.  
 
+![img](./assets/tutorials_topic_graph.png)
 
