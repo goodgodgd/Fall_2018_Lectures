@@ -22,7 +22,7 @@ int main(int argc, char **argv)		// Node Main Function
   ros::Rate loop_rate(10);
 
   // 메시지 데이터 객체 생성
-  ros_tutorials_topic::MsgTutorial msg;     
+  ros_tutorials_topic::MsgTutorial msg;
   int count = 0;
 
   // ros나 노드 상태에 이상이 생기지 않는 한 무한 반복
