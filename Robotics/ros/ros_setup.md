@@ -183,7 +183,39 @@ $ rosrun rqt_graph rqt_graph
     상단의 체크표시 (Apply all operations)를 누르면 파티션 재조정이 이루어진다.
 ***
 
-#### 2.3 시간 설정
+#### 2.3 펌웨어 및 패키지 업데이트
+
+출처: https://discourse.ros.org/t/announcing-turtlebot3-software-v1-0-0-and-firmware-v1-2-0-update/4888
+
+[SBC]에서
+```bash
+#opencr 업데이트
+$ export OPENCR_PORT=/dev/ttyACM0
+$ export OPENCR_MODEL=burger
+$ rm -rf ./opencr_update.tar.bz2
+
+#한 줄의 명령어
+$ wget https://github.com/ROBOTIS-GIT/OpenCR/raw/master/arduino/opencr_release/shell_update/opencr_update.tar.bz2 && tar -xvf opencr_update.tar.bz2 && cd ./opencr_update && ./update.sh $OPENCR_PORT $OPENCR_MODEL.opencr && cd ..
+#여기까지
+
+#패키지 소스 지우고 다시 다운로드
+$ cd ~/catkin_ws/src/
+$ rm -rf turtlebot3/ turtlebot3_msgs/ hls_lfcd_lds_driver/
+$ git clone https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
+$ git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+$ git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+
+#터틀봇에 불필요한 노드 삭제
+$ cd ~/catkin_ws/src/turtlebot3
+$ sudo rm -r turtlebot3_description/ turtlebot3_teleop/ turtlebot3_navigation/ turtlebot3_slam/ turtlebot3_example/
+
+#기존 빌드파일 삭제 후 다시 빌드
+$ cd ~/catkin_ws/
+$ rm -rf build/ devel/
+$ cd ~/catkin_ws && catkin_make -j1
+```
+
+#### 2.4 시간 설정
 
 두 개의 PC가 ROS를 통해 통신을 하기 위해서는 시간을 동기화 해줘야 한다.
 ```bash
@@ -192,7 +224,7 @@ sudo ntpdate ntp.ubuntu.com
 ```
 ***
 
-#### 2.4 네트워크 설정
+#### 2.5 네트워크 설정
 
 Remote PC (1.3)와 마찬가지로 라즈비안에서도 `.bashrc`에 있는 IP 설정을 수정한다.
 - `ifconfig` 명령어를 입력한다.
@@ -214,17 +246,21 @@ Remote PC (1.3)와 마찬가지로 라즈비안에서도 `.bashrc`에 있는 IP 
         ```
 - 저장 후 leafpad 를 닫는다.
 - 설정을 적용하기 위해 다음 명령어를 실행한다.
+
     - `source ~/.bashrc`
 ***
 
-#### 2.5 원격 제어 확인
+#### 2.6 원격 제어 확인
 
 Remote PC에서 ssh 명령어로 SBC의 터미널에 접속할 수 있다.
 아래 명령어를 입력하고 SBC의 비밀번호 (기본: turtlebot) 를 입력하면 터미널상의 사용자명이 `pi`로 바뀐다.
-```bash
-# 192.168.xxx.xxx 는 SBC의 IP 주소 == 2.4의 ROS_HOSTNAME
-$ ssh pi@192.168.xxx.xxx
-```
 
+```bash
+#192.168.xxx.xxx 는 SBC의 IP 주소 == 2.4의 ROS_HOSTNAME
+$ ssh pi@192.168.xxx.xxx
+
+#로봇에서 odometry와 lds 메시지 토픽 발행
+pi@raspberrypi $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+```
 이제 SBC에 모니터, 키보드, 마우스가 없어도 원격 접속을 통해 SBC를 제어 할 수 있다.  
 단지 커맨드로만 제어할 수 있어 약간 불편할 수는 있지만 어차피 SBC에서 해야하는 건 ROS를 활성화 명령어를 내리는 것 뿐이다.  
