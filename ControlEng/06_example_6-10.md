@@ -1,36 +1,44 @@
+# Example 6-10
+
+ì œì–´ê³µí•™ ì˜ˆì œ 6-10ì„ í’€ì´ì…ë‹ˆë‹¤.
+![Alt text](./assets/example-6-10-sol.jpg)
+
+ì œì–´ê³µí•™ ì˜ˆì œ 6-10ì„ í‘¸ëŠ” ì½”ë“œì…ë‹ˆë‹¤.
+
+```matlab
 clc; clear
 
 s = tf('s');
 G1 = 1/(s*(s+4)*(s+6));
 
-disp('root locus ±×¸®±â')
+disp('root locus ê·¸ë¦¬ê¸°')
 figure(1)
 rlocus(G1)
 axis([-12 2 -7 7])
 set(gcf,'Position',[300 300 600 600])
 hold on
 
-disp('Mp·ÎºÎÅÍ zeta °è»ê')
+disp('Mpë¡œë¶€í„° zeta ê³„ì‚°')
 Mp = 0.16;
 v1 = log(Mp);
 zeta_Mp = sqrt(v1^2/(pi^2+v1^2))
-disp('Á¶°ÇÀ» ¸¸Á·ÇÏ´Â zeta¸¦ ¼±ÅÃ')
+disp('ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” zetaë¥¼ ì„ íƒ')
 zeta = 0.504
 theta = asin(zeta);
 plot([0 -100*sin(theta)], [0  100*cos(theta)], 'c--')
 plot([0 -100*sin(theta)], [0 -100*cos(theta)], 'c--')
 
-disp('±Ù±ËÀû¿¡¼­ Mp Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ±ØÁ¡ ¼±ÅÃ')
+disp('ê·¼ê¶¤ì ì—ì„œ Mp ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ê·¹ì  ì„ íƒ')
 p1 = [-1.205, 2.064]
 plot(p1(1), p1(2), '*k')
 
-disp('»ó½Â½Ã°£À» 1/3·Î ÁÙÀÌ´Â ±ØÁ¡ ¼³°è')
+disp('ìƒìŠ¹ì‹œê°„ì„ 1/3ë¡œ ì¤„ì´ëŠ” ê·¹ì  ì„¤ê³„')
 p2 = p1*3
 plot(p2(1), p2(2), '*r')
 hold off
 
 
-disp('À§»óÁ¶°Ç¿¡ ÀÇÇÑ ¿µÁ¡ÀÇ À§»ó °è»ê')
+disp('ìœ„ìƒì¡°ê±´ì— ì˜í•œ ì˜ì ì˜ ìœ„ìƒ ê³„ì‚°')
 ang_G1 = -atan2(p2(2), p2(1)) - atan2(p2(2), p2(1)+4) ...
             - atan2(p2(2), p2(1)+6);
 ang_G1 = ang_G1;
@@ -40,17 +48,29 @@ theta_z_deg = rad2deg(theta_z)
 zero = p2(2)/tan(theta_z) - p2(1)
 
 G2 = (s+zero)/(s*(s+4)*(s+6));
-disp('root locus ±×¸®±â')
+disp('root locus ê·¸ë¦¬ê¸°')
 figure(2)
 rlocus(G2)
 axis([-12 2 -7 7])
 set(gcf,'Position',[900 300 600 600])
 hold on
 plot(p2(1), p2(2), '*r')
-plot([0 -100*sin(theta)], [0  100*cos(theta)], 'c--')
-plot([0 -100*sin(theta)], [0 -100*cos(theta)], 'c--')
 hold off
 
 K = sqrt(p2(1)^2 + p2(2)^2) * sqrt((4+p2(1))^2 + p2(2)^2) ...
     * sqrt((6+p2(1))^2 + p2(2)^2) / sqrt((zero+p2(1))^2 + p2(2)^2)
+```
 
+ê²°ê³¼ ì´ë¯¸ì§€ ì…ë‹ˆë‹¤.
+
+ê¸°ë³¸ ê·¼ê¶¤ì 
+![Alt text](./assets/example-6-10-1.jpg)
+
+ìµœëŒ€ ì´ˆê³¼ë¥¼ ë§Œì¡±í•˜ëŠ” ê·¹ì ì˜ ìœ„ì¹˜
+![Alt text](./assets/example-6-10-2.jpg)
+
+ìƒìŠ¹ì‹œê°„ì„ 1/3ë¡œ ì¤„ì´ëŠ” ê·¹ì ì˜ ìœ„ì¹˜
+![Alt text](./assets/example-6-10-3.jpg)
+
+ì œì–´ê¸° ì ìš© í›„ ê·¼ê¶¤ì ê³¼ ì„±ëŠ¥ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ê·¹ì ì˜ ìœ„ì¹˜
+![Alt text](./assets/example-6-10-4.jpg)
