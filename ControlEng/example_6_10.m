@@ -1,16 +1,16 @@
 clc; clear
-
+disp('예제 6-10 PD 제어기 설계')
 s = tf('s');
 G1 = 1/(s*(s+4)*(s+6));
 
-disp('root locus 그리기')
+% root locus 그리기
 figure(1)
 rlocus(G1)
 axis([-12 2 -7 7])
 set(gcf,'Position',[300 300 600 600])
 hold on
 
-disp('Mp로부터 zeta 계산')
+disp('최대초과 조건으로부터 zeta 계산')
 Mp = 0.16;
 v1 = log(Mp);
 zeta_Mp = sqrt(v1^2/(pi^2+v1^2))
@@ -29,18 +29,18 @@ p2 = p1*3
 plot(p2(1), p2(2), '*r')
 hold off
 
-
 disp('위상조건에 의한 영점의 위상 계산')
-ang_G1 = -atan2(p2(2), p2(1)) - atan2(p2(2), p2(1)+4) ...
-            - atan2(p2(2), p2(1)+6);
-ang_G1 = ang_G1;
+ang_G1 = -atan2(p2(2), p2(1)) - atan2(p2(2), p2(1)+4) - atan2(p2(2), p2(1)+6);
+fprintf('G(s)의 위상 = -theta_p1 - theta_p2 - theta_p3 = -(%.3f) - (%.3f) - (%.3f) = %f\n', ...
+    -atan2(p2(2), p2(1)), -atan2(p2(2), p2(1)+4), -atan2(p2(2), p2(1)+6), ang_G1)
 % theta_z + ang_G1 = -180
 theta_z = -pi - ang_G1;
-theta_z_deg = rad2deg(theta_z)
-zero = p2(2)/tan(theta_z) - p2(1)
+fprintf('PD 제어기의 위상 = %f\n', rad2deg(theta_z))
+zero = p2(2)/tan(theta_z) - p2(1);
+fprintf('영점의 위치 = %f\n', zero)
 
-G2 = (s+zero)/(s*(s+4)*(s+6));
-disp('root locus 그리기')
+disp('PD제어기가 적용된 개로전달함수')
+G2 = (s+zero)*G1
 figure(2)
 rlocus(G2)
 axis([-12 2 -7 7])
@@ -52,5 +52,6 @@ plot([0 -100*sin(theta)], [0 -100*cos(theta)], 'c--')
 hold off
 
 K = sqrt(p2(1)^2 + p2(2)^2) * sqrt((4+p2(1))^2 + p2(2)^2) ...
-    * sqrt((6+p2(1))^2 + p2(2)^2) / sqrt((zero+p2(1))^2 + p2(2)^2)
+    * sqrt((6+p2(1))^2 + p2(2)^2) / sqrt((zero+p2(1))^2 + p2(2)^2);
+fprintf('목표하는 극점 p2를 지나는 K = %f\n', K)
 
