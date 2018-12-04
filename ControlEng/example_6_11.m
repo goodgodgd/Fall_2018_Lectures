@@ -16,7 +16,7 @@ plot(p1(1),p1(2), '*k')
 hold on
 rlocus(G1)
 axis([-50 2 -25 25])
-set(gcf,'Position',[100 100 600 600])
+set(gcf,'Position',[100 500 600 600])
 hold off
 
 p2 = 2*p1;
@@ -41,5 +41,5 @@ plot(p2(1), p2(2), '*k')
 hold on
 rlocus(G2)
 axis([-100 2 -50 50])
-set(gcf,'Position',[800 100 600 600])
+set(gcf,'Position',[800 500 600 600])
 hold off

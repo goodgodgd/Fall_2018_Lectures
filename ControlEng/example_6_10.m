@@ -7,7 +7,7 @@ G1 = 1/(s*(s+4)*(s+6));
 figure(1)
 rlocus(G1)
 axis([-12 2 -7 7])
-set(gcf,'Position',[300 300 600 600])
+% set(gcf,'Position',[300 300 600 600])   % 크기 위치고정
 hold on
 
 disp('최대초과 조건으로부터 zeta 계산')

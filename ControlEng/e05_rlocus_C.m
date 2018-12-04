@@ -1,35 +1,20 @@
 clc; clear
 
 s = tf('s');
-G = 1/(s*(s+1)*(s+4));
+G = (s+6)*(s+8)/((s+1)*(s+4)*(s+10));
 
 % 먼저 근궤적을 그려놓고 근궤적을 검증해보자
 figure(1)
 rlocus(G)
-axis([-8 2 -5 5])
+axis([-12 2 -7 7])
 hold on
 
 disp('1. G의 극점 영점 구하기')
 poles = pole(G)
-zeros = zero(G);
+zeros = zero(G)
 pause
 
-disp('2. 근궤적의 점근선 구하기')
-num_asym = size(poles,1) - size(zeros,1);
-fprintf('발산하는 점근선의 개수: %d\n', num_asym)
-asym_point = (sum(poles) - sum(zeros))/(num_asym);
-fprintf('점근선과 실수축이 만나는 점: %f\n', asym_point)
-for k=1:3
-    angle = (2*k+1)*pi / num_asym;
-    asymptote_angle = rad2deg(atan2(sin(angle), cos(angle)));
-    fprintf('점근선의 각도: %f\n', asymptote_angle)
-    % (asym_point, 0) -> (asym_point + 100*cos(angle), 100*sin(angle))
-    plot([asym_point, asym_point + 100*cos(angle)], [0, 100*sin(angle)], '--')
-end
-fprintf('\n')
-pause
-
-disp('3. 분기점 구하기')
+disp('2. 분기점 구하기')
 % 전달함수의 분모 분자의 계수 추출
 [num, den] = tfdata(G);
 num = num{1};
@@ -56,4 +41,3 @@ for i=1:size(breakpts, 1)
     end
 end
 hold off
-
