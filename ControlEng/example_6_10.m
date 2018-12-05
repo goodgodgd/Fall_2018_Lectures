@@ -7,7 +7,7 @@ G1 = 1/(s*(s+4)*(s+6));
 figure(1)
 rlocus(G1)
 axis([-12 2 -7 7])
-% set(gcf,'Position',[300 300 600 600])   % 크기 위치고정
+set(gcf,'Position',[100 500 600 600])   % 크기 위치고정
 hold on
 
 disp('최대초과 조건으로부터 zeta 계산')
@@ -24,7 +24,7 @@ disp('근궤적에서 Mp 조건을 만족하는 극점 선택')
 p1 = [-1.205, 2.064]
 plot(p1(1), p1(2), '*k')
 
-disp('상승시간을 1/3로 줄이는 극점 설계')
+disp('정착시간을 1/3로 줄이는 극점 설계')
 p2 = p1*3
 plot(p2(1), p2(2), '*r')
 hold off
@@ -44,7 +44,7 @@ G2 = (s+zero)*G1
 figure(2)
 rlocus(G2)
 axis([-12 2 -7 7])
-set(gcf,'Position',[900 300 600 600])
+set(gcf,'Position',[800 500 600 600])
 hold on
 plot(p2(1), p2(2), '*r')
 plot([0 -100*sin(theta)], [0  100*cos(theta)], 'c--')

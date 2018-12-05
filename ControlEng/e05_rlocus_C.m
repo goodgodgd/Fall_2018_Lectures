@@ -17,17 +17,17 @@ pause
 disp('2. 분기점 구하기')
 % 전달함수의 분모 분자의 계수 추출
 [num, den] = tfdata(G);
-num = num{1};
-den = den{1};
+num = num{1}
+den = den{1}
 
 syms w
-K_w = -poly2sym(den, w) / poly2sym(num, w);
+K_w = -poly2sym(den, w) / poly2sym(num, w)
 disp('심볼릭 함수로 표현한 dK(w)/dw')
 dK_w = diff(K_w)
 % 근궤적의 교차점 후보 구하기 = dK_w의 분자가 0이 되는 해 구하기
-[num, den] = numden(dK_w);  % 분자의 추출
+[num, den] = numden(dK_w)  % 분자의 추출
 num = sym2poly(num);        % 분자의 계수 추출
-breakpts = roots(num);            % 분자=0 의 해 계산
+breakpts = roots(num)            % 분자=0 의 해 계산
 for i=1:size(breakpts, 1)
     if ~isreal(breakpts(i))
         continue

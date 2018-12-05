@@ -19,7 +19,7 @@ ts = 3.5;   % 정착시간 3초 이하
 wn_tr = 2.4/tr
 % exp(-zeta*pi / sqrt(1-zeta^2)) < Mp
 % ->  zeta^2 > (lnM)^2 / ((lnM)^2 + pi^2)
-zeta_Mp = abs(log(Mp) / sqrt(log(Mp)^2 + pi^2))
+zeta_Mp = sqrt(log(Mp)^2 / (log(Mp)^2 + pi^2))
 theta_Mp = asin(zeta_Mp)
 % 4/sig < ts  ->  sig > 4/ts
 sig_ts = 4/ts
