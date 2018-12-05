@@ -1,39 +1,43 @@
+% rigid transformation example code
 clc; clear
-
-% pose1 in global frame
-p1 = [5, 4, pi/6];
-theta = p1(3);
+% pose2 in frame 1
+pose1_2 = [5, 4, pi/6];
+theta = pose1_2(3);
 R1 = [cos(theta), -sin(theta); sin(theta), cos(theta)];
-t1 = [p1(1); p1(2)];
-T1 = [R1 t1; 0 0 1]
+t1_2 = [pose1_2(1); pose1_2(2)];
+% transformation matrix of pose2 in frame 1
+T1_2 = [R1 t1_2; 0 0 1]
 
-% pose2 relative to pose1
-p2_1 = [3, 4, pi/3];
-theta = p2_1(3);
-R2_1 = [cos(theta), -sin(theta); sin(theta), cos(theta)];
-t2_1 = [p2_1(1); p2_1(2)];
-T2_1 = [R2_1 t2_1; 0 0 1]
+% pose3 in frame 2
+pose2_3 = [3, 4, pi/3];
+theta = pose2_3(3);
+R2_3 = [cos(theta), -sin(theta); sin(theta), cos(theta)];
+t2_3 = [pose2_3(1); pose2_3(2)];
+% transformation matrix of pose3 in frame 2
+T2_3 = [R2_3 t2_3; 0 0 1]
 
 % pose2 in global frame
-T2 = T1 * T2_1
+T1_3 = T1_2 * T2_3
 
-disp('transform point in 2')
-pa_1 = [1,2,1]';
-pa_g = T1*pa_1
-inv_T2_1 = inv(T2_1)
-pa_2 = T2_1\pa_1
+disp('transform point a in frame 2 to frame 1')
+pa_2 = [1,2,1]';
+pa_1 = T1_2 * pa_2
+disp('transform point a in frame 2 to frame 3')
+T3_2 = inv(T2_3)
+pa_3 = T2_3 \ pa_2
 
-disp('transform point in 3')
-pb_2 = [3,2,1]';
-pb_1 = T2_1 * pb_2
-pb_g = T2 * pb_2
+disp('transform point b in frame 3 to frame 2')
+pb_3 = [3,2,1]';
+pb_2 = T2_3 * pb_3
+disp('transform point b in frame 3 to frame 1')
+pb_1 = T1_3 * pb_3
 
-
+% draw frames and points
 % x, y axes in homogeneous coordinates
 baisic_axes = [0 0 1; 1 0 1; 0 1 1]';
 frameg = baisic_axes;   % in global frame
-frame1 = T1 * baisic_axes; % transform to frame1
-frame2 = T2 * baisic_axes; % transform to frame2
+frame1 = T1_2 * baisic_axes; % transform to frame1
+frame2 = T1_3 * baisic_axes; % transform to frame2
 
 % plot global frame with blue line
 hold off
@@ -48,5 +52,6 @@ plot(frame2(1, [1 2]), frame2(2, [1 2]), 'k-', frame2(1, [1 3]), frame2(2, [1 3]
 text(frame2(1, 1), frame2(2, 1)-0.1, 'frame2')
 axis([-1 13 -1 13])
 
+% mark points
 plot(pa_g(1), pa_g(2), '*')
 plot(pb_g(1), pb_g(2), '*')

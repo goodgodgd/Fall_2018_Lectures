@@ -5,7 +5,9 @@ CONFIG -= qt
 
 SOURCES += \
         main.cpp \
-    exampledog.cpp
+    exampledog.cpp \
+    test.cpp
 
 HEADERS += \
-    exampledog.h
+    exampledog.h \
+    test.h
