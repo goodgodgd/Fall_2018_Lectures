@@ -14,7 +14,7 @@ public:
     void publishVelocity();
 
 private:
-    geometry_msgs::Twist selfDrive(const sensor_msgs::LaserScan& scan);
+    geometry_msgs::Twist selfDrive(const sensor_msgs::LaserScan::ConstPtr& scan);
 
     ros::Publisher* pubVelo;
     geometry_msgs::Twist velMsg;
