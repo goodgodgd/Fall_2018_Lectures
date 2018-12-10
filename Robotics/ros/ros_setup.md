@@ -261,6 +261,12 @@ $ ssh pi@192.168.xxx.xxx
 
 #로봇에서 odometry와 lds 메시지 토픽 발행
 pi@raspberrypi $ roslaunch turtlebot3_bringup turtlebot3_robot.launch
+
+#새 탭 (ctrl+shit+T), 터틀봇을 원격 조종할 수 있는 노드 실행
+$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch –screen
+
+#새 탭 (ctrl+shit+T), 터틀봇의 경로와 LiDAR 정보를 볼 수 있는 rqt 실행
+$ roslaunch turtlebot3_bringup turtlebot3_model.launch
 ```
 이제 SBC에 모니터, 키보드, 마우스가 없어도 원격 접속을 통해 SBC를 제어 할 수 있다.  
 단지 커맨드로만 제어할 수 있어 약간 불편할 수는 있지만 어차피 SBC에서 해야하는 건 ROS를 활성화 명령어를 내리는 것 뿐이다.  

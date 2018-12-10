@@ -1,4 +1,3 @@
-% rigid transformation example code
 clc; clear
 % pose2 in frame 1
 pose1_2 = [5, 4, pi/6];
@@ -50,8 +49,7 @@ text(frame1(1, 1), frame1(2, 1)-0.1, 'frame1')
 % plot frame2 with black line
 plot(frame2(1, [1 2]), frame2(2, [1 2]), 'k-', frame2(1, [1 3]), frame2(2, [1 3]), 'k-')
 text(frame2(1, 1), frame2(2, 1)-0.1, 'frame2')
-axis([-1 13 -1 13])
 
 % mark points
-plot(pa_g(1), pa_g(2), '*')
-plot(pb_g(1), pb_g(2), '*')
+plot(pa_1(1), pa_1(2), '*')
+plot(pb_1(1), pb_1(2), '*')
