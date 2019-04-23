@@ -68,7 +68,7 @@ void newAndDeleteSimple()
     // 포인터: 객체가 생성된 메모리 주소
     int* ptr = new int;
     *ptr = 10;
-    cout << "simply create int: " << *ptr << endl;
+    cout << "simply create int: " << ptr << " " << *ptr << endl;
     delete ptr;
 }
 
