@@ -5,3 +5,7 @@
 build-*-Debug
 build-*-Release
 *.asv
+*.o
+*.out
+build
+
