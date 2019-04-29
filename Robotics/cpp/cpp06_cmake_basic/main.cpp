@@ -1,7 +1,6 @@
 #include <iostream>
 #include "foo.h"
 #include "bar.h"
-
 int main()
 {
 	std::cout << "Hello main\n";
@@ -9,3 +8,4 @@ int main()
 	bar();
     return 0;
 }
+

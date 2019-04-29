@@ -1,6 +1,4 @@
 #include "bar.h"
-
-void bar()
-{
+void bar() {
 	std::cout << "hello bar\n";
 }

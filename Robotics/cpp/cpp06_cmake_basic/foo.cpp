@@ -1,6 +1,4 @@
 #include "foo.h"
-
-void foo()
-{
+void foo() {
 	std::cout << "hello foo\n";
 }

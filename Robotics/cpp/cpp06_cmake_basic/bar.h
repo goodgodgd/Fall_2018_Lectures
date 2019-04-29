@@ -2,7 +2,6 @@
 #define BAR_H
 
 #include <iostream>
-
 void bar();
 
 #endif // BAR_H
