@@ -52,6 +52,16 @@ protected:
     }
 };
 
+int main()
+{
+    Character* warrior = new Warrior("warrior");
+    Character* wizard = new Wizard("wizard");
+    warrior->attack(wizard);
+    wizard->attack(warrior);
+    warrior->attack(wizard);
+    warrior->attack(wizard);
+    return 0;
+}
 // 객체 지향 개념
 // 캡슐화: 객체의 속성(데이터)와 속성을 다루는 방법(함수)을 한데 묶음
 //         객체의 상세한 내용을 외부에 숨기고 메시지(함수)만으로 객체와 상호작용
@@ -65,14 +75,3 @@ protected:
 //         새로운 멤버 변수와 함수를 추가하여 기능을 확장할 수 있다.
 // 다형성: 부모 클래스의 가상 함수를 자식클래스에서 재정의 할 수 있다.
 //         상속 받은 함수의 이름은 그대로 두고 기능만 바꿀 수 있다.
-
-int main()
-{
-    Character* warrior = new Warrior("warrior");
-    Character* wizard = new Wizard("wizard");
-    warrior->attack(wizard);
-    wizard->attack(warrior);
-    warrior->attack(wizard);
-    warrior->attack(wizard);
-    return 0;
-}

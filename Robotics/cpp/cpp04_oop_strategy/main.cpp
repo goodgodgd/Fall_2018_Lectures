@@ -58,15 +58,6 @@ protected:
     }
 };
 
-
-// 템플릿 패턴: 여러 단계로 이루어진 알고리즘에서 일부 단계만 자식 클래스에서 변형하여 사용
-//			알고리즘의 전체 구조가 정해진 상태에서 일부 루틴을 다르게 구현한 객체들이 필요할 때 사용
-// 전략 패턴: 같은 기능을 하지만 다르게 구현된 알고리즘을 캡슐화 (클래스로 객체화)하여
-//			알고리즘을 run time에서 교체가능하게 만든다.
-//			알고리즘을 사용하는 client (Character)와는 독립적으로 알고리즘을 변경할 수 있다.
-//			예를 들어 속도가 빠른 대신 메모리를 많이 사용하는 알고리즘과 
-//			반대 알고리즘을 필요에 따라 교환할 수 있다.
-
 int main()
 {
     Character* david = new Warrior("david");
@@ -74,8 +65,15 @@ int main()
     std::cout << "david equipped a flaming sword" << std::endl;
     david->setWeapon(new FlamingSword);
     david->attack(hans);
-    std::cout << "david equipped a freezing sword" << std::endl;
+    std::cout << "hans equipped a freezing sword" << std::endl;
     david->setWeapon(new FreezingSword);
     david->attack(hans);
     return 0;
 }
+// 템플릿 패턴: 여러 단계로 이루어진 알고리즘에서 일부 단계만 자식 클래스에서 변형하여 사용
+//			알고리즘의 전체 구조가 정해진 상태에서 일부 루틴을 다르게 구현한 객체들이 필요할 때 사용
+// 전략 패턴: 같은 기능을 하지만 다르게 구현된 알고리즘을 캡슐화 (클래스로 객체화)하여
+//			알고리즘을 run time에서 교체가능하게 만든다.
+//			알고리즘을 사용하는 client (Character)와는 독립적으로 알고리즘을 변경할 수 있다.
+//			예를 들어 속도가 빠른 대신 메모리를 많이 사용하는 알고리즘과 
+//			반대 알고리즘을 필요에 따라 교환할 수 있다.
