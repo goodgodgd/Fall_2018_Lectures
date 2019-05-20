@@ -65,7 +65,7 @@ int main()
     std::cout << "david equipped a flaming sword" << std::endl;
     david->setWeapon(new FlamingSword);
     david->attack(hans);
-    std::cout << "hans equipped a freezing sword" << std::endl;
+    std::cout << "david changed a weapon to a freezing sword" << std::endl;
     david->setWeapon(new FreezingSword);
     david->attack(hans);
     return 0;

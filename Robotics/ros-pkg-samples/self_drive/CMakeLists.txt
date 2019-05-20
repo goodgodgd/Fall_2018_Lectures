@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(self_drive)
 
-# set(CMAKE_PREFIX_PATH /opt/ros/kinetic)
+set(CMAKE_PREFIX_PATH /opt/ros/kinetic)
 message("===== cmake prefix: ${CMAKE_PREFIX_PATH}")
 
 ## Compile as C++11, supported in ROS Kinetic and newer
